@@ -88,7 +88,7 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: './index.html',
+        template: './pulbic/index.html',
       }),
 
       new CopyWebpackPlugin({

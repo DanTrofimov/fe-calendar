@@ -6,9 +6,6 @@
     "react",
     "react-hooks"
   ],
-  "extends": [
-    "airbnb-typescript"
-  ],
   "parserOptions": {
     "project": ["src/tsconfig.json", "service-worker/tsconfig.json"],
     "sourceType": "module"

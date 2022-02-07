@@ -1,32 +1,30 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "outDir": "./dist",
-    "rootDir": ".",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "module": "esnext",
-    "lib": ["es6", "dom", "es2017", "esnext.intl", "es2017.intl", "es2018.intl"],
-    "target": "ES6",
-    "jsx": "react",
-    "esModuleInterop": true,
-    "typeRoots": [
-      "./node_modules/@types"
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-  "exclude": [
-    "./dist",
-    "./node_modules"
+  "include": [
+    "src"
   ],
   "references": [
-    { "path": "./service-worker" },
-    { "path": "./src" }
-  ]
+    { "path": "./service-worker"},
+    { "path": "./src"  },
+  ],
 }

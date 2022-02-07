@@ -45,7 +45,7 @@ clientsClaim();
 const precacheManifest = [].concat(self.__WB_MANIFEST || []);
 precacheAndRoute(precacheManifest);
 
-const handler = createHandlerBoundToURL('/index.html');
+const handler = createHandlerBoundToURL('./public/index.html');
 const navigationRoute = new NavigationRoute(handler, {
   denylist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
 });

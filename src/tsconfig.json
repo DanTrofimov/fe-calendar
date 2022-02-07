@@ -6,5 +6,6 @@
   "include": [
     "./**/*"
   ],
-  "exclude": ["../service-worker/**/*"]
+  "exclude": ["../service-worker/**/*"],
+  "composite": true 
 }
