@@ -2,7 +2,6 @@
     "extends": [
       "react-app",
       "airbnb",
-      "plugin:jsx-a11y/recommended",
       "prettier"
     ],
     "plugins": [
@@ -12,10 +11,23 @@
     "rules": {
       "semi": 0,
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx", ".ts"]  }],
-      "prettier/prettier": [
-        "error", {
-          "semi": false
+      "import/extensions": [
+        "error",
+        {
+          "ts": "never",
+          "tsx": "never",
+          "js": "never",
+          "jsx": "never"
         }
-      ]
-    }
+      ],
+      "no-underscore-dangle": [2, { "allow": [ "__WB_MANIFEST" ] }],
+    },
+    "settings": {
+        "import/resolver": {
+          "node": {
+            "paths": ["./"],
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        }
+      }
   }
