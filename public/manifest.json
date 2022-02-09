@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Frontend Events",
+  "name": "Frontend Events",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +21,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#f7df1d",
-  "background_color": "#ced3d7"
+  "background_color": "#ffffff"
 }
