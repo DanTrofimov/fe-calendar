@@ -35,7 +35,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": ["react-app", "react-app/jest"]
@@ -48,5 +49,13 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://dantrofimov.github.io/fe-calendar"
+  "homepage": "https://dantrofimov.github.io/fe-calendar",
+  "devDependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "lint-staged": "^12.3.3",
+    "prettier": "^2.5.1"
+  }
 }
