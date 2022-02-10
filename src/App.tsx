@@ -1,12 +1,15 @@
 import React from "react";
-import style from "./App.module.css";
-import logo from "./logo512.png";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { Routes } from "./constants/routes";
+import Login from "./components/pages/Login";
 
 function App() {
   return (
-    <div className={style.App}>
-      <img src={logo} alt="logo" />
-    </div>
+    <Router>
+      <Switch>
+        <Route path={Routes.LOGIN} component={Login} />
+      </Switch>
+    </Router>
   );
 }
 
