@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install Node.js dependencies
+      - name: Install dependencies
         run: yarn
 
       - name: Run linters
