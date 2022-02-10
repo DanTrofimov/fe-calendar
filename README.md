@@ -1,10 +1,10 @@
 # Frontend Events ![deploy](https://github.com/DanTrofimov/fe-calendar/actions/workflows/deploy.yml/badge.svg) ![lint](https://github.com/DanTrofimov/fe-calendar/actions/workflows/lint.yml/badge.svg)
 
-Application to see / scedule / add frontend events.
+Application to see, scedule and add frontend events.
 ## Setup
 
-Use `yarn` to download dependencies \
-Use `yarn start` to launch app
+- Use `yarn` to download dependencies
+- Use `yarn start` to launch app
 
 ## Docs
 
