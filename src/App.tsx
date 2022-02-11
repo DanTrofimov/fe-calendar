@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Routes } from "./constants/routes";
 import Login from "./components/pages/Login";
 import SignUp from "./components/pages/SignUp";
@@ -10,6 +10,7 @@ function App() {
       <Switch>
         <Route path={Routes.LOGIN} component={Login} />
         <Route path={Routes.SIGN_UP} component={SignUp} />
+        <Redirect from="/" to={Routes.LOGIN}/>
       </Switch>
     </Router>
   );
