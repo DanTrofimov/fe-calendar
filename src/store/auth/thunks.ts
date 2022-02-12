@@ -30,7 +30,7 @@ export const signUpThunk = createAsyncThunk(
     if (data.error) {
       toast.error(data.error);
     } else {
-      toast.success(data.message);
+      toast.success(data.email);
       history.push(Routes.LOGIN);
     }
 
