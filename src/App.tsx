@@ -1,12 +1,33 @@
 import React from "react";
-import style from "./App.module.css";
-import logo from "./logo512.png";
+import {
+  HashRouter as Router,
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
+import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Routes } from "./constants/routes";
+import { ToastsConfig } from "./constants/toast";
+import Login from "./components/pages/Login";
+import SignUp from "./components/pages/SignUp";
+import Dashboard from "./components/pages/Dashboard";
+import store from "./store";
 
 function App() {
   return (
-    <div className={style.App}>
-      <img src={logo} alt="logo" />
-    </div>
+    <Provider store={store}>
+      <ToastContainer {...ToastsConfig} />
+      <Router>
+        <Switch>
+          <Route path={Routes.LOGIN} component={Login} />
+          <Route path={Routes.SIGN_UP} component={SignUp} />
+          <Route path={Routes.DASHBOARD} component={Dashboard} />
+          <Redirect from="/" to={Routes.LOGIN} />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
