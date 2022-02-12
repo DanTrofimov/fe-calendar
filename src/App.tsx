@@ -6,7 +6,10 @@ import {
   Switch
 } from "react-router-dom";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Routes } from "./constants/routes";
+import { ToastsConfig } from "./constants/toast";
 import Login from "./components/pages/Login";
 import SignUp from "./components/pages/SignUp";
 import store from "./store";
@@ -14,6 +17,7 @@ import store from "./store";
 function App() {
   return (
     <Provider store={store}>
+      <ToastContainer {...ToastsConfig} />
       <Router>
         <Switch>
           <Route path={Routes.LOGIN} component={Login} />

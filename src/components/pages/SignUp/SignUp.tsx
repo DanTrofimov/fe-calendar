@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import AuthContainer from "../../molecules/AuthContainer";
 import AuthForm from "../../molecules/AuthForm";
 import { Routes } from "../../../constants/routes";
-
 import { signUpThunk } from "../../../store/auth/thunks";
 
 const SignUp: FC = () => {

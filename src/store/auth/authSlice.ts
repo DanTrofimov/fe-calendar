@@ -3,12 +3,16 @@ import { signUpThunk } from "./thunks";
 
 export type AuthState = {
   isLogged: boolean;
-  message: string;
 };
 
+export type Response = {
+  error: string,
+  message: string,
+  statusCode: number,
+}
+
 const initialAuthState: AuthState = {
-  isLogged: false,
-  message: ""
+  isLogged: false
 };
 
 const authSlice = createSlice({
@@ -20,7 +24,7 @@ const authSlice = createSlice({
   name: "auth",
   extraReducers: (builder) => {
     builder.addCase(signUpThunk.fulfilled, (state, action: PayloadAction) => {
-      console.log(state, action);
+      
     });
   }
 });

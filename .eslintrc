@@ -15,6 +15,7 @@
       "no-unused-vars": "off",
       "react/function-component-definition": "off",
       "no-restricted-exports": "off",
+      "react/jsx-props-no-spreading": "off",
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx", ".ts"]  }],
       "import/extensions": [
         "error",
