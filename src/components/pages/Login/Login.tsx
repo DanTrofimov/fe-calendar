@@ -1,25 +1,36 @@
 import React, { FC } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import AuthForm from "../../molecules/AuthForm";
 import AuthContainer from "../../molecules/AuthContainer";
 import { Routes } from "../../../constants/routes";
 import { loginThunk } from "../../../store/auth/thunks";
+import { selectAuthState } from "../../../store/auth/selectors";
+import { cleanInfo } from "../../../store/auth/authSlice";
 
 const Login: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onLogin = (email: string, password: string) => {
-    dispatch(
+  const { isLogged } = useSelector(selectAuthState);
+
+  const onLogin = async (email: string, password: string) => {
+    await dispatch(
       loginThunk({
-        authInput: {
-          email,
-          password
-        },
-        history
+        email,
+        password
       })
     );
+
+    if (isLogged) {
+      toast.info(email);
+      history.push(Routes.DASHBOARD);
+    } else {
+      toast.error("Ошибка");
+    }
+
+    dispatch(cleanInfo());
   };
 
   return (
