@@ -22,9 +22,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getUserThunk.fulfilled,
-      (state: UserState, action: PayloadAction<UserResponse>) => {
-        console.log(action.payload);
-      }
+      (state: UserState, action: PayloadAction<UserResponse>) => {}
     );
   }
 });
