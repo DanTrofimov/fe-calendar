@@ -1,0 +1,38 @@
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.authForm input {
+    height: 10px;
+}
+
+.authForm label {
+    top: -5px !important;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonsContainer button, .buttonsContainer a {
+    text-transform: none;
+}
+
+.buttonsContainer a, .buttonsContainer button {
+    font-size: 14px;
+}
+
+.buttonsContainer a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #1976d2;
+}
+
+.buttonsContainer button {
+    height: 30px;
+    padding: 2px 25px;
+}

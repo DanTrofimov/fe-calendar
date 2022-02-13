@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 
 type AuthInput = {
   email: string;
@@ -42,12 +41,5 @@ export const logoutThunk = createAsyncThunk("auth/signOut", async () => {
     method: "DELETE"
   });
   const data = await response.json();
-
-  if (data.error) {
-    toast.error(data.error);
-  } else {
-    toast.info(data.message);
-  }
-
   return data;
 });
