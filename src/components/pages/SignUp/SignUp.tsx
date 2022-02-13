@@ -13,7 +13,7 @@ const SignUp: FC = () => {
   const history = useHistory();
 
   const onSignUp = async (email: string, password: string) => {
-    const { error } = await dispatch(
+    const { error, message } = await dispatch(
       signUpThunk({
         email,
         password
@@ -23,7 +23,7 @@ const SignUp: FC = () => {
     if (error) {
       toast.error("Ошибка");
     } else {
-      toast.info(email);
+      toast.info(message);
       history.push(Routes.LOGIN);
     }
 
