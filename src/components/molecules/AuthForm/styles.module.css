@@ -1,7 +1,15 @@
 .authForm {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 17px;
+}
+
+.authForm input {
+    height: 10px;
+}
+
+.authForm label {
+    top: -5px !important;
 }
 
 .buttonsContainer {

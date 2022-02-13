@@ -1,6 +1,16 @@
 import React, { FC, useState } from "react";
-import { TextField, Button } from "@mui/material";
+import {
+  TextField,
+  Button,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  InputLabel,
+  FormControl
+} from "@mui/material";
 import { Link } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import styles from "./styles.module.css";
 
 type AuthFormProps = {
@@ -18,29 +28,46 @@ const AuthForm: FC<AuthFormProps> = ({ link, submit }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     submit.action(email, password);
   };
 
+  const changePassVisibility = () => setShowPassword(!showPassword);
+
   return (
     <form onSubmit={onSubmit} className={styles.authForm}>
       <TextField
-        size="small"
         label="Email"
         variant="outlined"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <TextField
-        size="small"
-        label="Password"
-        variant="outlined"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <FormControl variant="outlined">
+        <InputLabel htmlFor="password">Password</InputLabel>
+        <OutlinedInput
+          id="password"
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={changePassVisibility}
+                onMouseDown={changePassVisibility}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Password"
+        />
+      </FormControl>
       <div className={styles.buttonsContainer}>
         <Link to={link.href}>{link.text}</Link>
         <Button size="small" variant="contained" type="submit">
