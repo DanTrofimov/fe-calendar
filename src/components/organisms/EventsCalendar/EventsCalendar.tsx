@@ -26,6 +26,7 @@ const EventsCalendar: FC<EventsCalendarProps> = ({ year, events }) => {
       dataSource={preparedEvents}
       year={year}
       style="background"
+      weekStart={1}
     />
   );
 };
