@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/fe-calendar/static/css/main.d0432132.css",
+    "main.css": "/fe-calendar/static/css/main.128ac381.css",
     "main.js": "/fe-calendar/static/js/main.e6213834.js",
     "static/js/377.eca7909a.chunk.js": "/fe-calendar/static/js/377.eca7909a.chunk.js",
     "service-worker.js": "/fe-calendar/service-worker.js",
     "index.html": "/fe-calendar/index.html",
-    "main.d0432132.css.map": "/fe-calendar/static/css/main.d0432132.css.map",
+    "main.128ac381.css.map": "/fe-calendar/static/css/main.128ac381.css.map",
     "main.e6213834.js.map": "/fe-calendar/static/js/main.e6213834.js.map",
     "377.eca7909a.chunk.js.map": "/fe-calendar/static/js/377.eca7909a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d0432132.css",
+    "static/css/main.128ac381.css",
     "static/js/main.e6213834.js"
   ]
 }
