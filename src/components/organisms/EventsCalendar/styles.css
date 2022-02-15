@@ -16,15 +16,16 @@
 
 .calendar .months-container {
     display: flex !important;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
 .calendar .month-container {
-margin-top: 40px;
+    margin-top: 40px;
 }
 
 .calendar .month {
-    padding: 10px;
+    padding: 10px !important;
     box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     border-radius: 10px;
 }
@@ -57,5 +58,5 @@ margin-top: 40px;
 
 .sceleton-container span {
     border-radius: 10px;
-    background-color: #e8ecef;
+    background-color: #f2f5f7;
 }
