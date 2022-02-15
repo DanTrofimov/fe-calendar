@@ -1,44 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// @ts-ignore
-import Calendar from "rc-year-calendar";
 import { selectEvents } from "../../../store/events/selectors";
 import { selectUser } from "../../../store/user/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
 import { getUserThunk } from "../../../store/user/thunks";
 import { Event, User } from "../../../domain";
-import "./styles.css";
+import EventsCalendar from "../../organisms/EventsCalendar";
+import styles from "./styles.module.css";
 
-const Dashboard = () => {
+const Dashboard: FC = () => {
   const dispatch = useDispatch();
+  const [year, setYear] = useState(2021);
 
   useEffect(() => {
     dispatch(getUserThunk());
-    dispatch(getEventsThunk());
-  }, [dispatch]);
+    dispatch(getEventsThunk(year.toString()));
+  }, [dispatch, year]);
 
   const user: User | null = useSelector(selectUser);
   const events: Event[] = useSelector(selectEvents);
 
-  const preparedDataSource = events.map(
-    ({ uid, summary, start, end, location }) => ({
-      id: uid,
-      location,
-      startDate: new Date(start),
-      endDate: new Date(end),
-      name: summary
-    })
-  );
-
   return (
-    <div className="calendar-container">
+    <div className={styles["calendar-container"]}>
       <h2 className="email">{user?.email}</h2>
-      <Calendar
-        className="calendar"
-        dataSource={preparedDataSource}
-        year="2022"
-        style="background"
-      />
+      <EventsCalendar year={year.toString()} events={events} />
     </div>
   );
 };
