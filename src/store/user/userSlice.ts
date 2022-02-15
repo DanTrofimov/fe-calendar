@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../domain";
+import { Roles, User } from "../../domain";
 import { getUserThunk } from "./thunks";
 
 export type UserState = {
@@ -22,7 +22,12 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getUserThunk.fulfilled,
-      (state: UserState, action: PayloadAction<UserResponse>) => {}
+      (state: UserState, action: PayloadAction<UserResponse>) => {
+        state.user = {
+          ...action.payload,
+          role: Roles.USER
+        };
+      }
     );
   }
 });
