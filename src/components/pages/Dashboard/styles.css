@@ -40,3 +40,14 @@
   text-align: center;
   margin: 0;
 }
+
+@media screen and (max-width: 580px) {
+  .calendar-container {
+    zoom: 70%;
+  }
+
+  .calendar-container .calendar {
+    height: auto !important;
+    overflow: hidden;
+  }
+}
