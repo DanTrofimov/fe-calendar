@@ -10,3 +10,8 @@ export const selectEvents = createSelector(
   selectEventsState,
   (state: EventsState): Event[] => state.events
 );
+
+export const selectLoading = createSelector(
+  selectEventsState,
+  (state: EventsState): boolean => state.isLoading
+);

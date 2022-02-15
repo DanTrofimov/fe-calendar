@@ -43,4 +43,19 @@ margin-top: 40px;
       height: auto !important;
       overflow: hidden;
     }
-  }
+}
+
+.sceleton-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.sceleton-container span {
+    border-radius: 10px;
+    background-color: #e8ecef;
+}
