@@ -9,10 +9,10 @@ const Dashboard = () => {
 
   const events: Event[] = useSelector(selectEvents);
 
-  useEffect(() => {
-    dispatch(getEventsThunk());
-  });
+  // useEffect(() => {
+  //   dispatch(getEventsThunk());
+  // }, [dispatch]);
 
-  return <div className={styles.container}>{JSON.stringify(events)}</div>;
+  return <pre className={styles.container}>{JSON.stringify(events)}</pre>;
 };
 export default Dashboard;

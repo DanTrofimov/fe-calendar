@@ -6,6 +6,7 @@ export const getEventsThunk = createAsyncThunk(
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/events?year=${year}`,
       {
+        credentials: "include",
         headers: {
           "Content-Type": "application/json"
         }
