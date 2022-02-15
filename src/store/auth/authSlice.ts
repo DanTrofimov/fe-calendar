@@ -26,7 +26,7 @@ const authSlice = createSlice({
       state.error = "";
       state.message = "";
     },
-    handleLogout(state) {
+    handleClearAuthState(state) {
       state.isLogged = false;
     },
   },
@@ -57,5 +57,5 @@ const authSlice = createSlice({
   }
 });
 
-export const { cleanInfo, handleLogout } = authSlice.actions;
+export const { cleanInfo, handleClearAuthState } = authSlice.actions;
 export const authReducer = authSlice.reducer;
