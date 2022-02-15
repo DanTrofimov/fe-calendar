@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../domain";
+import { Roles, User } from "../../domain";
 import { getUserThunk } from "./thunks";
 
 export type UserState = {
@@ -17,14 +17,24 @@ const initialUserState: UserState = {
 
 const userSlice = createSlice({
   initialState: initialUserState,
-  reducers: {},
+  reducers: {
+    clearUser: (state) => {
+      state.user = null;
+    },
+  },
   name: "user",
   extraReducers: (builder) => {
     builder.addCase(
       getUserThunk.fulfilled,
-      (state: UserState, action: PayloadAction<UserResponse>) => {}
+      (state: UserState, action: PayloadAction<UserResponse>) => {
+        state.user = {
+          ...action.payload,
+          role: Roles.USER
+        };
+      }
     );
   }
 });
 
+export const { clearUser } = userSlice.actions;
 export const userReducer = userSlice.reducer;

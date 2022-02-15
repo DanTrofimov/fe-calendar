@@ -25,7 +25,10 @@ const authSlice = createSlice({
     cleanInfo(state) {
       state.error = "";
       state.message = "";
-    }
+    },
+    handleLogout(state) {
+      state.isLogged = false;
+    },
   },
   name: "auth",
   extraReducers: (builder) => {
@@ -54,5 +57,5 @@ const authSlice = createSlice({
   }
 });
 
-export const { cleanInfo } = authSlice.actions;
+export const { cleanInfo, handleLogout } = authSlice.actions;
 export const authReducer = authSlice.reducer;
