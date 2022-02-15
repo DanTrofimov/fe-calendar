@@ -16,6 +16,6 @@ const Dashboard = () => {
     dispatch(getUserThunk());
   }, [dispatch]);
 
-  return <pre className={styles.container}>{user?.toString()}</pre>;
+  return <pre className={styles.container}>{JSON.stringify(user)}</pre>;
 };
 export default Dashboard;
