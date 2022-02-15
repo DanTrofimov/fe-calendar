@@ -1,28 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAuthState } from "../../../store/auth/selectors";
-import { selectUser } from "../../../store/user/selectors";
+import { selectEvents } from "../../../store/events/selectors";
+import { getEventsThunk } from "../../../store/events/thunks";
 import styles from "./styles.module.css";
-import { getUserThunk } from "../../../store/user/thunks";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  const { isLogged } = useSelector(selectAuthState);
-  const user = useSelector(selectUser);
+  const events: Event[] = useSelector(selectEvents);
 
   useEffect(() => {
-    dispatch(getUserThunk());
-  });  
+    dispatch(getEventsThunk());
+  });
 
-  return (
-    <div className={styles.container}>
-      <h2>
-        calendar will <br /> be here
-      </h2>
-      <p>isLogged: {isLogged?.toString()}</p>
-      <p>User: {JSON.stringify(user)}</p>
-    </div>
-  );
+  return <div className={styles.container}>{JSON.stringify(events)}</div>;
 };
 export default Dashboard;
