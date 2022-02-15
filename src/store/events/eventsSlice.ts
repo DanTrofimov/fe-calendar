@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Event } from "../../domain";
 import { getEventsThunk } from "./thunks";
 
 export type EventsState = {

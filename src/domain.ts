@@ -7,13 +7,14 @@ export interface User {
   id: string;
   email: string;
   role: keyof typeof Roles;
-};
+}
 
 export interface Event {
-  uid: string,
-  start: string,
-  end: string,
-  summary: string,
-  description: string,
-  allDay: boolean,
+  uid: string;
+  start: string;
+  end: string;
+  summary: string;
+  description: string;
+  allDay: boolean;
+  location: string;
 }
