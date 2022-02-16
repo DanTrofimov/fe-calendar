@@ -19,7 +19,18 @@ const Dashboard: FC = () => {
     dispatch(getEventsThunk(year));
   }, [dispatch, year]);
 
-  const years = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+  const generateArrayOfYears = () => {
+    const max = new Date().getFullYear();
+    const min = 2016;
+    const years = [];
+
+    for (let i = min; i <= max; i += 1) {
+      years.push(i.toString());
+    }
+    return years;
+  };
+
+  const years = generateArrayOfYears();
 
   const events: Event[] = useSelector(selectEvents);
   const isLoading: boolean = useSelector(selectLoading);
