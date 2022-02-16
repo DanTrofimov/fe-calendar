@@ -1,0 +1,62 @@
+/* using nesting */
+
+.calendar {
+    padding: 10px;
+    height: 105vh;
+    margin-top: -40px;
+}
+  
+.calendar::-webkit-scrollbar {
+    display: none;
+}
+  
+.calendar .calendar-header {
+    display: none !important;
+}
+
+.calendar .months-container {
+    display: flex !important;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.calendar .month-container {
+    margin-top: 40px;
+}
+
+.calendar .month {
+    padding: 10px !important;
+    box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
+    border-radius: 10px;
+}
+
+.calendar .day {
+    transition: background-color 0.5s;
+}
+
+.email {
+    text-align: center;
+    margin: 0;
+}
+
+@media screen and (max-width: 580px) {  
+    .calendar {
+      height: auto !important;
+      overflow: hidden;
+    }
+}
+
+.sceleton-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.sceleton-container span {
+    border-radius: 10px;
+    background-color: #f2f5f7;
+}

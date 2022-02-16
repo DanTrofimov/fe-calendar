@@ -1,10 +1,21 @@
-.container {
-    width: 200px;
-    height: 100vh;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    text-align: center;
+.calendar-container {
+  padding-top: 20px;
+  max-width: 900px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  zoom: 90%;
+}
+
+.year-select-container {
+  display: flex;
+  justify-content: center;
+  padding: 0 22px;
+}
+
+@media screen and (max-width: 580px) {
+  .calendar-container {
+    zoom: 80%;
+  }
 }
