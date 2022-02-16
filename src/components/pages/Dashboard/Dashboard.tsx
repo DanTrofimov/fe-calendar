@@ -38,6 +38,7 @@ const Dashboard: FC = () => {
 
   return (
     <div className={styles["calendar-container"]}>
+      <Header/>
       <div className={styles["year-select-container"]}>
         <YearSelect
           options={years}
