@@ -5930,6 +5930,11 @@ js-yaml@^4.1.0:
   dependencies:
     argparse "^2.0.1"
 
+js-year-calendar@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/js-year-calendar/-/js-year-calendar-1.0.2.tgz#eb60df6591b2543520b76245f158ad7e9b2915f2"
+  integrity sha512-ayHH/vE7xuXgGCprhQ23REbp3Rb2fy1rXO8jA26Wmuw4vYJ/TTIgFxFuNAlNPL8WR4tNXfnG41nlH3p+hjFesg==
+
 jsdom@^16.6.0:
   version "16.7.0"
   resolved "https://registry.npmjs.org/jsdom/-/jsdom-16.7.0.tgz"
@@ -7560,6 +7565,13 @@ raw-body@2.4.2:
     http-errors "1.8.1"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+rc-year-calendar@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/rc-year-calendar/-/rc-year-calendar-1.0.2.tgz#726480d1010edc8fd03032b210dc3f155ba2ae9e"
+  integrity sha512-TdEHZ4hs3WEuEAAmX/HEWlK7EZwhACkpuJKdkxL360igekuQDguyXTC9RuDFdk6lv4CAT7L4d4D6PTP7zUMBlQ==
+  dependencies:
+    js-year-calendar "^1.0.2"
 
 react-app-polyfill@^3.0.0:
   version "3.0.0"

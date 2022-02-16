@@ -25,11 +25,11 @@ export const loginThunk = createAsyncThunk(
   async (authInput: AuthInput) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/sign_in`, {
       method: "POST",
-      body: JSON.stringify(authInput),
       credentials: "include",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(authInput)
     });
     const data = await response.json();
 
