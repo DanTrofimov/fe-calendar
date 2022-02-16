@@ -39,7 +39,8 @@ export const loginThunk = createAsyncThunk(
 
 export const logoutThunk = createAsyncThunk("auth/signOut", async () => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/sign_out`, {
-    method: "DELETE"
+    method: "DELETE",
+    credentials: "include",
   });
   const data = await response.json();
   return data;
