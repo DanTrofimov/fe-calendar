@@ -2,9 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  margin: 25px 0;
-  padding: 0 10px;
+  width: 96%;
+  margin: 25px auto;
 }
 
 .header .header__group {
@@ -14,7 +13,7 @@
 
 .header h2 {
   display: inline-block;
-  margin: 0 18px 0 0;
+  margin: 0 0 0 18px;
 }
 
 .header a {
@@ -30,15 +29,16 @@
 @media screen and (max-width: 768px) {
   .header {
     align-items: flex-end;
+    margin: 0 auto 15px;
   }
 
   .header .header__group {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
   }
 
   .header h2 {
-    margin-bottom: 12px;
+    margin: 0 0 12px;
   }
 }
 

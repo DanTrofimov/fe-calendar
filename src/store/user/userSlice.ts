@@ -7,6 +7,7 @@ export type UserState = {
 };
 
 type UserResponse = {
+  admin: string;
   id: string;
   email: string;
 };
@@ -29,7 +30,7 @@ const userSlice = createSlice({
       (state: UserState, action: PayloadAction<UserResponse>) => {
         state.user = {
           ...action.payload,
-          role: Roles.USER
+          role: action.payload.admin ? Roles.ADMIN : Roles.USER
         };
       }
     );

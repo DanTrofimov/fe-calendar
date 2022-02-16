@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {useSelector} from "react-redux";
 import {Button} from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
-import {User} from "../../../domain";
+import {Roles, User} from "../../../domain";
 import {selectUser} from "../../../store/user/selectors";
 import {selectAuthState} from "../../../store/auth/selectors";
 import styles from './styles.module.css';
@@ -24,20 +24,24 @@ const Header: FC = () => {
 
   const {isLogged} = useSelector(selectAuthState);
   const user: User | null = useSelector(selectUser);
-  // TODO добавить функционал админа
+
   return (
     <div className={styles.header}>
       <div className={styles.header__group}>
+        {isLogged && (<Button variant="contained" onClick={handleLogout}>Logout</Button>)}
         {isLogged
-          ? (<h2 className={styles.header__email}>{user?.email}</h2>)
+          ? (<h2 className={styles.header__item}>{user?.email}</h2>)
           : (<Link to={Routes.LOGIN}><Button variant="contained">Login</Button></Link>)
         }
-        {isLogged && (<Button variant="contained" onClick={handleLogout}>Logout</Button>)}
       </div>
-      <div className={styles.header__features}>
-        <Button variant="contained" className={styles.header__email}>+</Button>
-        <Button variant="contained" color="success">Scheduled</Button>
-      </div>
+      {user?.role === Roles.ADMIN
+        ? (<div className={styles.header__features}>
+          <Link to={Routes.REQUESTS}><Button variant="contained" color="success">Requests</Button></Link>
+        </div>)
+        : (<div className={styles.header__features}>
+          <Button variant="contained" className={styles.header__item}>+</Button>
+          <Link to={Routes.SCHEDULED}><Button variant="contained" color="success">Scheduled</Button></Link>
+        </div>)}
     </div>
   );
 };
