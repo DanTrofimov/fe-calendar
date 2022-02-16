@@ -3,12 +3,16 @@ import { useDispatch } from "react-redux";
 import { authReducer } from "./auth/authSlice";
 import { userReducer } from "./user/userSlice";
 import { eventsReducer } from "./events/eventsSlice";
+import { requestsReducer } from "./requests/requestSlice";
+import { scheduledReducer } from "./scheduled/scheduledSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     user: userReducer,
-    events: eventsReducer
+    events: eventsReducer,
+    request: requestsReducer,
+    scheduled: scheduledReducer,
   }
 });
 

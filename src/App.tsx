@@ -13,7 +13,8 @@ import { ToastsConfig } from "./constants/toast";
 import Login from "./components/pages/Login";
 import SignUp from "./components/pages/SignUp";
 import Dashboard from "./components/pages/Dashboard";
-import EventList from "./components/pages/EventList"
+import EventListRequests from "./components/pages/EventListRequests"
+import EventListScheduled from "./components/pages/EventListScheduled"
 import store from "./store";
 
 function App() {
@@ -25,8 +26,8 @@ function App() {
           <Route path={Routes.LOGIN} component={Login} />
           <Route path={Routes.SIGN_UP} component={SignUp} />
           <Route path={Routes.DASHBOARD} component={Dashboard} />
-          <Route path={Routes.REQUESTS} component={EventList} />
-          <Route path={Routes.SCHEDULED} component={EventList} />
+          <Route path={Routes.REQUESTS} component={EventListRequests} />
+          <Route path={Routes.SCHEDULED} component={EventListScheduled} />
           <Redirect from="/" to={Routes.LOGIN} />
         </Switch>
       </Router>

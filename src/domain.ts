@@ -10,11 +10,21 @@ export interface User {
 }
 
 export interface Event {
-  uid: string;
+  uid?: string;
   start: string;
   end: string;
   summary: string;
   description: string;
   allDay: boolean;
   location: string;
+}
+
+export interface Scheduled {
+  "eventId": string,
+  "date": string,
+}
+
+export interface Request extends Event {
+  _id?: string;
+  owner: string;
 }
