@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectEvents, selectLoading } from "../../../store/events/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
 import { getUserThunk } from "../../../store/user/thunks";
+import Header from "../../molecules/Header";
 import { Event } from "../../../domain";
 import EventsCalendar from "../../organisms/EventsCalendar";
 import YearSelect from "../../atoms/YearSelect";
