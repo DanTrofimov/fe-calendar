@@ -7,7 +7,7 @@ import {selectUser} from "../../../store/user/selectors";
 import {selectAuthState} from "../../../store/auth/selectors";
 import styles from './styles.module.css';
 import {useAppDispatch} from "../../../store";
-import {handleClearAuthState} from "../../../store/auth/authSlice";
+import {logoutThunk} from "../../../store/auth/thunks";
 import {clearUser} from "../../../store/user/userSlice";
 import {Routes} from '../../../constants/routes'
 
@@ -16,7 +16,7 @@ const Header: FC = () => {
   const history = useHistory();
 
   const handleLogout = () => {
-    dispatch(handleClearAuthState());
+    dispatch(logoutThunk());
     dispatch(clearUser());
 
     history.replace(Routes.DASHBOARD);
@@ -24,7 +24,7 @@ const Header: FC = () => {
 
   const {isLogged} = useSelector(selectAuthState);
   const user: User | null = useSelector(selectUser);
-
+  // TODO добавить функционал админа
   return (
     <div className={styles.header}>
       <div className={styles.header__group}>
