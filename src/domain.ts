@@ -10,7 +10,8 @@ export interface User {
 }
 
 export interface Event {
-  uid: string;
+  uid?: string;
+  _id?: string;
   start: string;
   end: string;
   summary: string;
@@ -18,3 +19,4 @@ export interface Event {
   allDay: boolean;
   location: string;
 }
+
