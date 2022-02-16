@@ -8,10 +8,13 @@ import EventsCalendar from "../../organisms/EventsCalendar";
 import YearSelect from "../../atoms/YearSelect";
 import styles from "./styles.module.css";
 import { setLoading } from "../../../store/events/eventsSlice";
+import ModalComponent from "../../molecules/ModalComponent/ModalComponent";
 
 const Dashboard: FC = () => {
   const dispatch = useDispatch();
   const [year, setYear] = useState(new Date().getFullYear().toString());
+
+  const [isOpen, setIsOPen] = useState(true);
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -26,6 +29,9 @@ const Dashboard: FC = () => {
 
   return (
     <div className={styles["calendar-container"]}>
+      <ModalComponent isOpen={isOpen} onClose={() => setIsOPen(false)}>
+        Modal example
+      </ModalComponent>
       <div className={styles["year-select-container"]}>
         <YearSelect
           options={years}
