@@ -48,6 +48,7 @@
 
 .sceleton-container {
     margin-top: 20px;
+    margin-bottom: 90px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
