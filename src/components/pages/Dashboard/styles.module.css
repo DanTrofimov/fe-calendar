@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   zoom: 90%;
-  margin-bottom: 20px;
 }
 
 .year-select-container {
@@ -25,5 +24,6 @@
 @media screen and (max-width: 580px) {
   .calendar-container {
     zoom: 80%;
+    margin-bottom: 20px;
   }
 }
