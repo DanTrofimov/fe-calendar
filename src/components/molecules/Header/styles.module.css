@@ -38,6 +38,8 @@
 @media screen and (max-width: 768px) {
   .header {
     align-items: flex-end;
+    width: 95%;
+    margin: 0 auto 15px;
   }
 
   .header .header__group {

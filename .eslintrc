@@ -19,6 +19,7 @@
       "react/style-prop-object": "off",
       "react/require-default-props": "off",
       "react/jsx-props-no-spreading": "off",
+      "no-underscore-dangle": "off",
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx", ".ts"]  }],
       "import/extensions": [
         "error",
@@ -28,8 +29,7 @@
           "js": "never",
           "jsx": "never"
         }
-      ],
-      "no-underscore-dangle": [2, { "allow": [ "__WB_MANIFEST" ] }],
+      ]
     },
     "settings": {
         "import/resolver": {
