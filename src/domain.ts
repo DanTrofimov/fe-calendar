@@ -4,12 +4,13 @@ export enum Roles {
 }
 
 export interface User {
-  id: string;
+  _id: string;
   email: string;
   role: keyof typeof Roles;
 }
 
 export interface Event {
+  _id?: string;
   uid?: string;
   start: string;
   end: string;
@@ -25,6 +26,6 @@ export interface Scheduled {
 }
 
 export interface Request extends Event {
-  _id?: string;
+  _id: string;
   owner: string;
 }

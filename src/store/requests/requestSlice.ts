@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {createRequestThunk, getRequestThunk} from "./thunks";
-import {Request} from "../../domain";
+import { postRequestThunk, getRequestThunk } from "./thunks";
+import { Request } from "../../domain";
 
-type RequestsState = {
+export type RequestsState = {
   requests: Request[];
 };
 
@@ -22,7 +22,7 @@ const requestSlice = createSlice({
       }
     );
     builder.addCase(
-      createRequestThunk.fulfilled,
+      postRequestThunk.fulfilled,
       (state: RequestsState, action: PayloadAction<Request[]>) => {
         state.requests = action.payload;
       }
@@ -30,4 +30,4 @@ const requestSlice = createSlice({
   }
 })
 
-export const requestsReducer = requestSlice;
+export const requestsReducer = requestSlice.reducer;

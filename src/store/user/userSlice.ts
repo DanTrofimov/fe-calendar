@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Roles, User } from "../../domain";
-import { getUserThunk } from "./thunks";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Roles, User} from "../../domain";
+import {getUserThunk} from "./thunks";
 
 export type UserState = {
   user: User | null;
@@ -8,7 +8,7 @@ export type UserState = {
 
 type UserResponse = {
   admin: string;
-  id: string;
+  _id: string;
   email: string;
 };
 
@@ -37,5 +37,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { clearUser } = userSlice.actions;
+export const {clearUser} = userSlice.actions;
 export const userReducer = userSlice.reducer;

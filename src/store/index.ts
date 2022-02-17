@@ -11,7 +11,7 @@ const store = configureStore({
     auth: authReducer,
     user: userReducer,
     events: eventsReducer,
-    request: requestsReducer,
+    requests: requestsReducer,
     scheduled: scheduledReducer,
   }
 });

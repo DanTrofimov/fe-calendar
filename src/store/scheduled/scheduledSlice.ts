@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {createScheduledThunk, getScheduledThunk} from "./thunks";
+import { postScheduledThunk, getScheduledThunk, deleteScheduledThunk } from "./thunks";
 import { Scheduled} from "../../domain";
 
-type ScheduledState = {
+export type ScheduledState = {
   scheduled: Scheduled[] | null;
 };
 
@@ -22,7 +22,13 @@ const scheduledSlice = createSlice({
       }
     );
     builder.addCase(
-      createScheduledThunk.fulfilled,
+      postScheduledThunk.fulfilled,
+      (state: ScheduledState, action: PayloadAction<Scheduled[]>) => {
+        state.scheduled = action.payload;
+      }
+    )
+    builder.addCase(
+      deleteScheduledThunk.fulfilled,
       (state: ScheduledState, action: PayloadAction<Scheduled[]>) => {
         state.scheduled = action.payload;
       }
@@ -30,4 +36,4 @@ const scheduledSlice = createSlice({
   }
 })
 
-export const scheduledReducer = scheduledSlice;
+export const scheduledReducer = scheduledSlice.reducer;

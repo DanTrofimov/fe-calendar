@@ -11,7 +11,12 @@ import {logoutThunk} from "../../../store/auth/thunks";
 import {clearUser} from "../../../store/user/userSlice";
 import {Routes} from '../../../constants/routes'
 
-const Header: FC = () => {
+type HeaderProps = {
+  buttonTitle: string;
+  buttonRouter: Routes;
+}
+
+const Header: FC<HeaderProps> = ({buttonTitle, buttonRouter}) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -36,11 +41,13 @@ const Header: FC = () => {
       </div>
       {user?.role === Roles.ADMIN
         ? (<div className={styles.header__features}>
-          <Link to={Routes.REQUESTS}><Button variant="contained" color="success">Requests</Button></Link>
+          <Link to={buttonRouter}><Button variant="contained"
+                                          color="success">{buttonTitle}</Button></Link>
         </div>)
         : (<div className={styles.header__features}>
           <Button variant="contained" className={styles.header__item}>+</Button>
-          <Link to={Routes.SCHEDULED}><Button variant="contained" color="success">Scheduled</Button></Link>
+          <Link to={buttonRouter}><Button variant="contained"
+                                          color="success">{buttonTitle}</Button></Link>
         </div>)}
     </div>
   );
