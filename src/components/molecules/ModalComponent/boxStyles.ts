@@ -4,7 +4,7 @@ const boxStyles = {
   left: "50%",
   borderRadius: "20px",
   transform: "translate(-50%, -50%)",
-  maxWidth: "350px",
+  maxWidth: "300px",
   width: "100%",
   bgcolor: "background.paper",
   boxShadow: 24,
