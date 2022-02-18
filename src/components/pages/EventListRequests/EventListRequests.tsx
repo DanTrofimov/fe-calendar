@@ -16,7 +16,7 @@ const EventListRequests: FC = () => {
 
   const requests: Request[] | null = useSelector(selectRequests);
 
-  // console.log(requests);
+  console.log(requests);
   return (
     <div className={styles["calendar-container"]}>
       <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD} />
