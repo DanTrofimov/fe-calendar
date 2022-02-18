@@ -51,11 +51,13 @@ const Dashboard: FC = () => {
     events.find(
       ({ uid, _id }) => uid === selectedEventId || _id === selectedEventId
     ) ?? events[0];
-  
+
   const onDayClick = (e: any) => {
-    setSelectedEventId(e.events[0].id)
-    setIsOpen(true);
-  }
+    if (e?.events[0]?.id) {
+      setSelectedEventId(e.events[0].id);
+      setIsOpen(true);
+    }
+  };
 
   return (
     <div className={styles["calendar-container"]}>

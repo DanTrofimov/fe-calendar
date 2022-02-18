@@ -17,3 +17,10 @@
     justify-content: flex-end;
     gap: 10px;
 }
+
+@media (max-width: 500px) {
+    .date-input-container input {
+        width: 140px;
+        height: 20px;
+    }
+}
