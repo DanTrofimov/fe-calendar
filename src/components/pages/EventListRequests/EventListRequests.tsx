@@ -19,7 +19,7 @@ const EventListRequests: FC = () => {
   console.log(requests);
   return (
     <div className={styles["calendar-container"]}>
-      <Header buttonTitle='DASHBOARD' buttonRouter={Routes.DASHBOARD} />
+      <Header buttonTitle='Dashboard' buttonRouter={Routes.DASHBOARD} />
       <h1>Requested events</h1>
     </div>)}
 
