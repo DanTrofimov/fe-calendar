@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loginThunk, signUpThunk } from "./thunks";
+import { loginThunk, signUpThunk, logoutThunk } from "./thunks";
 
 export type AuthState = {
   isLogged: boolean;
@@ -25,7 +25,10 @@ const authSlice = createSlice({
     cleanInfo(state) {
       state.error = "";
       state.message = "";
-    }
+    },
+    setIsLogged(state, action) {
+      state.isLogged = action.payload;
+    },
   },
   name: "auth",
   extraReducers: (builder) => {
@@ -51,8 +54,16 @@ const authSlice = createSlice({
         }
       }
     );
+    builder.addCase(
+      logoutThunk.fulfilled,
+      (state: AuthState, action: PayloadAction<Response>) => {
+        if (!action.payload.error) {
+          state.isLogged = false;
+        }
+      }
+    );
   }
 });
 
-export const { cleanInfo } = authSlice.actions;
+export const { cleanInfo, setIsLogged } = authSlice.actions;
 export const authReducer = authSlice.reducer;

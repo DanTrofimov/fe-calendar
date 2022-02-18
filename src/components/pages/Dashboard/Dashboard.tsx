@@ -1,14 +1,18 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectEvents, selectLoading } from "../../../store/events/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
 import { getUserThunk } from "../../../store/user/thunks";
-import { Event } from "../../../domain";
+import Header from "../../molecules/Header";
+import { Event, Roles, User } from "../../../domain";
 import EventsCalendar from "../../organisms/EventsCalendar";
 import YearSelect from "../../atoms/YearSelect";
 import styles from "./styles.module.css";
 import { setLoading } from "../../../store/events/eventsSlice";
 import ModalComponent from "../../molecules/ModalComponent/ModalComponent";
+import { Routes } from "../../../constants/routes";
+import { selectUser } from "../../../store/user/selectors";
+import { setIsLogged } from "../../../store/auth/authSlice";
 
 const Dashboard: FC = () => {
   const dispatch = useDispatch();
@@ -37,12 +41,21 @@ const Dashboard: FC = () => {
 
   const events: Event[] = useSelector(selectEvents);
   const isLoading: boolean = useSelector(selectLoading);
+  const user: User | null = useSelector(selectUser);
+
+  if (user?._id) dispatch(setIsLogged(true));
 
   return (
     <div className={styles["calendar-container"]}>
       <ModalComponent isOpen={isOpen} onClose={() => setIsOPen(false)}>
         Modal example
       </ModalComponent>
+      <Header
+        buttonTitle={user?.role === Roles.ADMIN ? "Requests" : "Scheduled"}
+        buttonRouter={
+          user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
+        }
+      />
       <div className={styles["year-select-container"]}>
         <YearSelect
           options={years}

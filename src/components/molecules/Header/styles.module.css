@@ -1,0 +1,57 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+.header__email::first-letter {
+  color: green;
+}
+
+.header__email {
+  display: inline-block;
+  margin: 0 0 0 18px;
+  font-size: 17px;
+}
+
+.header .header__group {
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.header button {
+  text-transform: none !important;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.header__add-button {
+  font-size: 15px;
+  margin-right: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    width: 95%;
+    margin: 0 auto 15px;
+  }
+
+  .header__email {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header__email {
+    width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+  }
+}
