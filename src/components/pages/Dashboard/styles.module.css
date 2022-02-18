@@ -8,6 +8,10 @@
   zoom: 90%;
 }
 
+.content {
+  padding: 0 20px;
+}
+
 .year-select-container {
   display: flex;
   justify-content: center;
