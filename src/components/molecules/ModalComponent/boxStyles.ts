@@ -11,7 +11,7 @@ const boxStyles = {
   padding: "10px 30px 30px 30px",
   '@media (max-width: 500px)': {
     width: '70%',
-    fontSize: "15px",
+    fontSize: "14px",
   }
 };
 
