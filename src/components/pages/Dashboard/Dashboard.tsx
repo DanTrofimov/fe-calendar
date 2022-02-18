@@ -19,7 +19,8 @@ const Dashboard: FC = () => {
   const dispatch = useDispatch();
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
-  const [isOpen, setIsOPen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState("");
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -46,23 +47,23 @@ const Dashboard: FC = () => {
 
   if (user?._id) dispatch(setIsLogged(true));
 
-  const mockEvent: Event = {
-    uid: "2022-01-18-digital-a11y-conf",
-    start: "2022-01-18T00:00:00.000Z",
-    end: "2022-02-09T00:00:00.000Z",
-    summary: "Конференция по цифровой доступности (онлайн)",
-    location: "Москва",
-    description: "https://facebook.com/events/4783636631715537",
-    allDay: true
-  };
+  const selectedEvent =
+    events.find(
+      ({ uid, _id }) => uid === selectedEventId || _id === selectedEventId
+    ) ?? events[0];
+  
+  const onDayClick = (e: any) => {
+    setSelectedEventId(e.events[0].id)
+    setIsOpen(true);
+  }
 
   return (
     <div className={styles["calendar-container"]}>
-      <ModalComponent isOpen={isOpen} onClose={() => setIsOPen(false)}>
+      <ModalComponent isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <ScheduleEventForm
-          event={mockEvent}
-          onSubmit={() => setIsOPen(false)}
-          onCancel={() => setIsOPen(false)}
+          event={selectedEvent}
+          onSubmit={() => setIsOpen(false)}
+          onCancel={() => setIsOpen(false)}
         />
       </ModalComponent>
       <Header
@@ -83,6 +84,7 @@ const Dashboard: FC = () => {
         isLoading={isLoading}
         year={year.toString()}
         events={events}
+        onDayClick={onDayClick}
       />
     </div>
   );

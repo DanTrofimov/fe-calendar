@@ -10,12 +10,15 @@ type EventsCalendarProps = {
   year: string;
   events: Event[];
   isLoading?: boolean;
+  // component's event type has a too complex structure
+  onDayClick: (e: any) => void;
 };
 
 const EventsCalendar: FC<EventsCalendarProps> = ({
   year,
   events,
-  isLoading = false
+  isLoading = false,
+  onDayClick
 }) => {
   const preparedEvents = events.map(
     ({ uid, summary, start, end, location }) => ({
@@ -38,6 +41,7 @@ const EventsCalendar: FC<EventsCalendarProps> = ({
           year={year}
           style="background"
           weekStart={1}
+          onDayClick={onDayClick}
         />
       )}
     </div>
