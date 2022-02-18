@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { selectEvents, selectLoading } from "../../../store/events/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
 import { getUserThunk } from "../../../store/user/thunks";
@@ -14,6 +15,7 @@ import { Routes } from "../../../constants/routes";
 import { selectUser } from "../../../store/user/selectors";
 import { setIsLogged } from "../../../store/auth/authSlice";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
+import { postScheduledThunk } from "../../../store/scheduled/thunks";
 
 const Dashboard: FC = () => {
   const dispatch = useDispatch();
@@ -59,8 +61,10 @@ const Dashboard: FC = () => {
     }
   };
 
-  const onScheduleSubmit = (id: string, scheduledDate: string) => {
-    console.log(id, scheduledDate);
+  const onScheduleSubmit = (_id: string, uid: string, date: string) => {
+    dispatch(postScheduledThunk({ _id, uid, date }));
+    setIsOpen(false);
+    toast.info("Has scheduled event");
   };
 
   return (

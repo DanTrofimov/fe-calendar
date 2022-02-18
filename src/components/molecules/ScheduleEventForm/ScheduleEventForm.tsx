@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 type SceduleEventFormProps = {
   event: Event;
-  onSubmit: (id: string, scheduledDate: string) => void;
+  onSubmit: (id: string, uid: string, scheduledDate: string) => void;
   onCancel: () => void;
 };
 
@@ -29,8 +29,6 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
     location
   } = event;
 
-  const id = _id ?? uid; 
-
   const dateFormat = "LLL d hh:mm b";
 
   const range = `${format(new Date(startDate), dateFormat)} - ${format(
@@ -38,13 +36,13 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
     dateFormat
   )}`;
 
-  const handleChange = (newValue: any) => {
+  const handleChangeDate = (newValue: any) => {
     setScheduleDate(newValue);
   };
 
   const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(id as string, scheduleDate.toISOString());
+    onSubmit(_id as string, uid as string, scheduleDate.toISOString());
   };
 
   return (
@@ -64,7 +62,7 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
           <DateTimePicker
             label=""
             value={scheduleDate}
-            onChange={handleChange}
+            onChange={handleChangeDate}
             renderInput={(params) => <TextField size="small" {...params} />}
           />
         </LocalizationProvider>
