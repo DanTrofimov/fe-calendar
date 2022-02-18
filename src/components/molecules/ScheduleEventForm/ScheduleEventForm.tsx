@@ -43,8 +43,8 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
         />
       </div>
       <div>
-        <Button>Cancel</Button>
-        <Button>Schedule</Button>
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button onClick={onSubmit}>Schedule</Button>
       </div>
     </form>
   );
