@@ -8,14 +8,30 @@
   zoom: 90%;
 }
 
+.content {
+  padding: 0 20px;
+}
+
+.content h1 {
+  font-size: 25px;
+}
+
 .year-select-container {
   display: flex;
   justify-content: center;
   padding: 0 22px;
+  margin-top: -50px;
+}
+
+@media screen and (max-width: 650px) {
+  .year-select-container {
+    margin-top: 0;
+  }
 }
 
 @media screen and (max-width: 580px) {
   .calendar-container {
     zoom: 80%;
+    margin-bottom: 20px;
   }
 }

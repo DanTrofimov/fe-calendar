@@ -45,8 +45,8 @@ const Dashboard: FC = () => {
   return (
     <div className={styles["calendar-container"]}>
       <Header
-        buttonTitle={user?.role === Roles.ADMIN ? 'Scheduled' : 'Requests'}
-        buttonRouter={user?.role === Roles.ADMIN ? Routes.SCHEDULED : Routes.REQUESTS}/>
+        buttonTitle={user?.role === Roles.ADMIN ? 'Requests' : 'Scheduled'}
+        buttonRouter={user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED}/>
       <div className={styles["year-select-container"]}>
         <YearSelect
           options={years}
