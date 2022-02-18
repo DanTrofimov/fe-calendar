@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 type SceduleEventFormProps = {
   event: Event;
-  onSubmit: () => void;
+  onSubmit: (id: string, scheduledDate: string) => void;
   onCancel: () => void;
 };
 
@@ -19,17 +19,17 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
 }) => {
   const [scheduleDate, setScheduleDate] = useState(new Date());
 
-  const handleChange = (newValue: any) => {
-    setScheduleDate(newValue);
-  };
-
   const {
+    _id,
+    uid,
     start: startDate,
     end: endDate,
     summary: title,
     description,
     location
   } = event;
+
+  const id = _id ?? uid; 
 
   const dateFormat = "LLL d hh:mm b";
 
@@ -38,8 +38,17 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
     dateFormat
   )}`;
 
+  const handleChange = (newValue: any) => {
+    setScheduleDate(newValue);
+  };
+
+  const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit(id as string, scheduleDate.toISOString());
+  };
+
   return (
-    <form>
+    <form onSubmit={onFormSubmit}>
       <h2>{title}</h2>
       <p>📍 {location}</p>
       <p>📆 {range}</p>
@@ -64,12 +73,7 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
         <Button variant="contained" size="small" onClick={onCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="success"
-          size="small"
-          onClick={onSubmit}
-        >
+        <Button variant="contained" color="success" size="small" type="submit">
           Schedule
         </Button>
       </div>

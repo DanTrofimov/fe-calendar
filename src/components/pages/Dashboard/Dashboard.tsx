@@ -59,12 +59,16 @@ const Dashboard: FC = () => {
     }
   };
 
+  const onScheduleSubmit = (id: string, scheduledDate: string) => {
+    console.log(id, scheduledDate);
+  };
+
   return (
     <div className={styles["calendar-container"]}>
       <ModalComponent isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <ScheduleEventForm
           event={selectedEvent}
-          onSubmit={() => setIsOpen(false)}
+          onSubmit={onScheduleSubmit}
           onCancel={() => setIsOpen(false)}
         />
       </ModalComponent>
