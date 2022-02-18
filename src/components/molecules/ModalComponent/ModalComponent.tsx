@@ -2,24 +2,12 @@ import React, { ReactNode, FC } from "react";
 import { Modal, Fade, Backdrop, Box, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import styles from "./styles.module.css";
+import boxStyles from './boxStyles';
 
 type ModalComponentProps = {
   children: ReactNode;
   isOpen: boolean;
   onClose: () => void;
-};
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  borderRadius: "20px",
-  transform: "translate(-50%, -50%)",
-  maxWidth: "350px",
-  width: "100%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 3
 };
 
 const ModalComponent: FC<ModalComponentProps> = ({
@@ -37,7 +25,7 @@ const ModalComponent: FC<ModalComponentProps> = ({
     }}
   >
     <Fade in={isOpen}>
-      <Box sx={style}>
+      <Box sx={boxStyles}>
         <div className={styles.wrapper}>
           <IconButton onClick={onClose} className={styles["close-icon"]}>
             <ClearIcon />

@@ -13,6 +13,7 @@ import ModalComponent from "../../molecules/ModalComponent/ModalComponent";
 import { Routes } from "../../../constants/routes";
 import { selectUser } from "../../../store/user/selectors";
 import { setIsLogged } from "../../../store/auth/authSlice";
+import ScheduleEventForm from "../../molecules/ScheduleEventForm";
 
 const Dashboard: FC = () => {
   const dispatch = useDispatch();
@@ -45,10 +46,24 @@ const Dashboard: FC = () => {
 
   if (user?._id) dispatch(setIsLogged(true));
 
+  const mockEvent: Event = {
+    uid: "2022-01-18-digital-a11y-conf",
+    start: "2022-01-18T00:00:00.000Z",
+    end: "2022-02-09T00:00:00.000Z",
+    summary: "Конференция по цифровой доступности (онлайн)",
+    location: "Москва",
+    description: "https://facebook.com/events/4783636631715537",
+    allDay: true
+  };
+
   return (
     <div className={styles["calendar-container"]}>
       <ModalComponent isOpen={isOpen} onClose={() => setIsOPen(false)}>
-        Modal example
+        <ScheduleEventForm
+          event={mockEvent}
+          onSubmit={() => setIsOPen(false)}
+          onCancel={() => setIsOPen(false)}
+        />
       </ModalComponent>
       <Header
         buttonTitle={user?.role === Roles.ADMIN ? "Requests" : "Scheduled"}
