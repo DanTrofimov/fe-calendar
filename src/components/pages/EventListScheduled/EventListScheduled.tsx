@@ -17,7 +17,7 @@ const EventListScheduled: FC = () => {
 
   const scheduled: Scheduled[] | null = useSelector(selectScheduled);
 
-  console.log(scheduled);
+  // console.log(scheduled);
   return (
     <div className={styles["calendar-container"]}>
       <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD} />
