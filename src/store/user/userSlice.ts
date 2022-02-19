@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Roles, User} from "../../domain";
+import {User} from "../../domain";
 import {getUserThunk} from "./thunks";
 
 export type UserState = {
@@ -7,7 +7,7 @@ export type UserState = {
 };
 
 type UserResponse = {
-  admin: string;
+  role: string;
   _id: string;
   email: string;
 };
@@ -30,7 +30,6 @@ const userSlice = createSlice({
       (state: UserState, action: PayloadAction<UserResponse>) => {
         state.user = {
           ...action.payload,
-          role: action.payload.admin ? Roles.ADMIN : Roles.USER
         };
       }
     );

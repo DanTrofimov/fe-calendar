@@ -1,12 +1,12 @@
 export enum Roles {
   USER = "USER",
-  ADMIN = "ADMIN"
+  ADMIN = "admin"
 }
 
 export interface User {
   _id: string;
   email: string;
-  role: keyof typeof Roles;
+  role: string;
 }
 
 export interface Event {

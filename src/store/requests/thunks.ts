@@ -72,3 +72,17 @@ export const postAdminRequestThunk = createAsyncThunk(
     return data;
   }
 );
+
+export const deleteAdminRequestThunk = createAsyncThunk('request/deleteAdminScheduled', async (request: Event) => {
+  const id = request.uid || request._id;
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/request/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+    headers: {
+      "Content-type": "application/json"
+    },
+  })
+
+  const data = await response.json();
+  return data;
+})
