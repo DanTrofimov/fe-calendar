@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import Header from "../../molecules/Header";
@@ -15,12 +15,8 @@ import {Routes} from "../../../constants/routes";
 import {selectUser} from "../../../store/user/selectors";
 import {useAppDispatch} from "../../../store";
 import EventList from "../../molecules/EventList";
-import RequestEventForm from "../../molecules/RequestEventForm";
-import ModalComponent from "../../molecules/ModalComponent";
 
 const EventListRequests: FC = () => {
-  const [isRequestOpen, setIsRequestOpen] = useState(false);
-
   const dispatch = useAppDispatch();
   const user: User | null = useSelector(selectUser);
 
@@ -56,10 +52,6 @@ const EventListRequests: FC = () => {
     }
   }
 
-  const handleButtonClick = () => {
-    setIsRequestOpen(true);
-  }
-
   const requests: Request[] | null = useSelector(selectRequests);
 
   return (
@@ -68,20 +60,15 @@ const EventListRequests: FC = () => {
       <div className={styles.content}>
         <h1>Requested events</h1>
         {requests?.length
-          ? (<EventList list={requests} buttonTitle='More'
-                        handleButtonClick={handleButtonClick}/>)
+          ? (<EventList
+              list={requests}
+              buttonTitle='More'
+              handleDeleteRequest={handleDeleteRequest}
+              handleApproveRequest={handleApproveRequest}
+              isNeedModal
+            />)
           : (<p>Уведомлений не создано или они были выполнены</p>)
         }
-        <ModalComponent
-          isOpen={isRequestOpen}
-          onClose={() => setIsRequestOpen(false)}
-        >
-          <RequestEventForm
-            onApprove={handleApproveRequest}
-            onReject={handleDeleteRequest}
-            onCancel={() => setIsRequestOpen(false)}
-          />
-        </ModalComponent>
       </div>
     </div>
   );

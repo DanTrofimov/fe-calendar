@@ -25,6 +25,11 @@ export interface Scheduled {
   "eventId": string,
   "date": string,
   summary: string,
+  start: string;
+  end: string;
+  description: string;
+  allDay: boolean;
+  location: string;
 }
 
 export interface Request extends Event {
