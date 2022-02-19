@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 type SceduleEventFormProps = {
   event: Event;
-  onSubmit: () => void;
+  onSubmit: (id: string, uid: string, scheduledDate: string) => void;
   onCancel: () => void;
 };
 
@@ -19,11 +19,9 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
 }) => {
   const [scheduleDate, setScheduleDate] = useState(new Date());
 
-  const handleChange = (newValue: any) => {
-    setScheduleDate(newValue);
-  };
-
   const {
+    _id,
+    uid,
     start: startDate,
     end: endDate,
     summary: title,
@@ -38,8 +36,17 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
     dateFormat
   )}`;
 
+  const handleChangeDate = (newValue: any) => {
+    setScheduleDate(newValue);
+  };
+
+  const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit(_id as string, uid as string, scheduleDate.toISOString());
+  };
+
   return (
-    <form>
+    <form onSubmit={onFormSubmit}>
       <h2>{title}</h2>
       <p>📍 {location}</p>
       <p>📆 {range}</p>
@@ -55,7 +62,7 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
           <DateTimePicker
             label=""
             value={scheduleDate}
-            onChange={handleChange}
+            onChange={handleChangeDate}
             renderInput={(params) => <TextField size="small" {...params} />}
           />
         </LocalizationProvider>
@@ -64,12 +71,7 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
         <Button variant="contained" size="small" onClick={onCancel}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          color="success"
-          size="small"
-          onClick={onSubmit}
-        >
+        <Button variant="contained" color="success" size="small" type="submit">
           Schedule
         </Button>
       </div>

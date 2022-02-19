@@ -16,6 +16,9 @@
   display: inline-block;
   margin: 0 0 0 18px;
   font-size: 17px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header .header__group {
@@ -34,7 +37,7 @@
 
 .header__add-button {
   font-size: 15px;
-  margin-right: 12px;
+  margin-right: 12px !important;
 }
 
 @media screen and (max-width: 768px) {
