@@ -63,7 +63,7 @@ const Dashboard: FC = () => {
   };
 
   const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
-    const data = await dispatch(postScheduledThunk({ _id: "blablabla", uid, date })).unwrap();
+    const data = await dispatch(postScheduledThunk({ _id, uid, date })).unwrap();
     if (!data.error) {
       toast.info("Has scheduled event");
     } else {
