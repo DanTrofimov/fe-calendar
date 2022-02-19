@@ -1,0 +1,42 @@
+.button-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+} 
+
+.input-container input {
+    height: 20px;
+}
+
+.input-container div {
+    flex-grow: 2;
+}
+
+.input-container p {
+    text-align: center;
+    width: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    margin: 10px 0 0 20px;
+}
+
+.checkbox-label {
+    width: auto;
+    font-weight: bold;
+    margin-left: -8px;
+    padding-bottom: 2px;
+}

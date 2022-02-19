@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "../../../store";
 import { selectEvents, selectLoading } from "../../../store/events/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
 import { getUserThunk } from "../../../store/user/thunks";
@@ -14,12 +16,15 @@ import { Routes } from "../../../constants/routes";
 import { selectUser } from "../../../store/user/selectors";
 import { setIsLogged } from "../../../store/auth/authSlice";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
+import RequestEventForm from "../../molecules/RequestEventForm";
+import { postScheduledThunk } from "../../../store/scheduled/thunks";
 
 const Dashboard: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isScheduledOpen, setIsScheduledOpen] = useState(false);
+  const [isRequestOpen, setIsRequestOpen] = useState(true);
   const [selectedEventId, setSelectedEventId] = useState("");
 
   useEffect(() => {
@@ -55,17 +60,41 @@ const Dashboard: FC = () => {
   const onDayClick = (e: any) => {
     if (e?.events[0]?.id) {
       setSelectedEventId(e.events[0].id);
-      setIsOpen(true);
+      setIsScheduledOpen(true);
     }
+  };
+
+  const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
+    const data = await dispatch(
+      postScheduledThunk({ _id, uid, date })
+    ).unwrap();
+    if (!data.error) {
+      toast.success("Has scheduled event");
+    } else {
+      toast.error("Schedule error");
+    }
+    setIsScheduledOpen(false);
   };
 
   return (
     <div className={styles["calendar-container"]}>
-      <ModalComponent isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <ModalComponent
+        isOpen={isScheduledOpen}
+        onClose={() => setIsScheduledOpen(false)}
+      >
         <ScheduleEventForm
           event={selectedEvent}
-          onSubmit={() => setIsOpen(false)}
-          onCancel={() => setIsOpen(false)}
+          onSubmit={onScheduleSubmit}
+          onCancel={() => setIsScheduledOpen(false)}
+        />
+      </ModalComponent>
+      <ModalComponent
+        isOpen={isRequestOpen}
+        onClose={() => setIsRequestOpen(false)}
+      >
+        <RequestEventForm
+          onSubmit={onScheduleSubmit}
+          onCancel={() => setIsRequestOpen(false)}
         />
       </ModalComponent>
       <Header
@@ -73,6 +102,7 @@ const Dashboard: FC = () => {
         buttonRouter={
           user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
         }
+        addButtonCallback={() => setIsRequestOpen(true)}
       />
       <div className={styles["year-select-container"]}>
         <YearSelect
