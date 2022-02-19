@@ -26,7 +26,7 @@ const EventListScheduled: FC = () => {
     }
   }
 
-  const scheduled: Scheduled[] | null = useSelector(selectScheduled);
+  const scheduled: Scheduled[] | undefined = useSelector(selectScheduled);
 
   return (
     <div className={styles["calendar-container"]}>

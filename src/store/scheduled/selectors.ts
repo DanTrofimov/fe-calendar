@@ -8,5 +8,5 @@ export const selectScheduledState = (state: RootState): ScheduledState =>
 
 export const selectScheduled = createSelector(
   selectScheduledState,
-  (state: ScheduledState): Scheduled[] | null => state.scheduled
+  (state: ScheduledState): Scheduled[] | undefined => state.scheduled
 );
