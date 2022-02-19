@@ -15,9 +15,14 @@ import { Routes } from "../../../constants/routes";
 type HeaderProps = {
   buttonTitle: string;
   buttonRouter: Routes;
+  addButtonCallback?: () => void;
 };
 
-const Header: FC<HeaderProps> = ({ buttonTitle, buttonRouter }) => {
+const Header: FC<HeaderProps> = ({
+  buttonTitle,
+  buttonRouter,
+  addButtonCallback = () => {}
+}) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -59,7 +64,10 @@ const Header: FC<HeaderProps> = ({ buttonTitle, buttonRouter }) => {
         </div>
       ) : (
         <div className={styles.header__features}>
-          <IconButton className={styles["header__add-button"]}>
+          <IconButton
+            className={styles["header__add-button"]}
+            onClick={addButtonCallback}
+          >
             <AddIcon />
           </IconButton>
           <Link to={buttonRouter}>

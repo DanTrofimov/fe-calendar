@@ -102,6 +102,7 @@ const Dashboard: FC = () => {
         buttonRouter={
           user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
         }
+        addButtonCallback={() => setIsRequestOpen(true)}
       />
       <div className={styles["year-select-container"]}>
         <YearSelect

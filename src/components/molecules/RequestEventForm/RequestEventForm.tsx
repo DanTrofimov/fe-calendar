@@ -11,10 +11,6 @@ const RequestEventForm: FC<RequetsEventFormProps> = ({
   onSubmit,
   onCancel
 }) => {
-  const [scheduleDate, setScheduleDate] = useState(new Date());
-
-  const dateFormat = "LLL d hh:mm b";
-
   const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     console.log(e);
   };
