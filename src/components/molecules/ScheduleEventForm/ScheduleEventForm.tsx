@@ -6,13 +6,13 @@ import { format } from "date-fns";
 import { Event } from "../../../domain";
 import styles from "./styles.module.css";
 
-type SceduleEventFormProps = {
+type ScheduleEventFormProps = {
   event: Event;
   onSubmit: (id: string, uid: string, scheduledDate: string) => void;
   onCancel: () => void;
 };
 
-const SceduleEventForm: FC<SceduleEventFormProps> = ({
+const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   event,
   onSubmit,
   onCancel
@@ -79,4 +79,4 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
   );
 };
 
-export default SceduleEventForm;
+export default ScheduleEventForm;

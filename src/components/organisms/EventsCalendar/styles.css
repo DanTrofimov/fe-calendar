@@ -25,9 +25,10 @@
 }
 
 .calendar .month {
+    height: 100%;
     padding: 10px !important;
-    box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     border-radius: 10px;
+    box-shadow: 0 0 5px 1px rgba(34, 60, 80, 0.2);
 }
 
 .calendar .day {

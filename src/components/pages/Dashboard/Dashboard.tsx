@@ -24,7 +24,7 @@ const Dashboard: FC = () => {
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
   const [isScheduledOpen, setIsScheduledOpen] = useState(false);
-  const [isRequestOpen, setIsRequestOpen] = useState(true);
+  const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState("");
 
   useEffect(() => {

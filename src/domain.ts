@@ -21,11 +21,14 @@ export interface Event {
 }
 
 export interface Scheduled {
+  _id: string;
   "eventId": string,
   "date": string,
+  summary: string,
 }
 
 export interface Request extends Event {
   _id: string;
   owner: string;
+  date: string;
 }
