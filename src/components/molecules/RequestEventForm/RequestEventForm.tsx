@@ -1,19 +1,19 @@
-import React, { FC, useState } from "react";
-import { Button, TextField, Checkbox } from "@mui/material";
-import { DateTimePicker, LocalizationProvider } from "@mui/lab";
+import React, {FC, useState} from "react";
+import {Button, TextField, Checkbox} from "@mui/material";
+import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { Event } from "../../../domain";
+import {Event} from "../../../domain";
 import styles from "./styles.module.css";
 
-type RequetsEventFormProps = {
-  onSubmit: (id: string, uid: string, scheduledDate: string) => void;
+type RequestsEventFormProps = {
+  onSubmit: (allDay: boolean, description: string, end: string, start: string, location: string, summary: string) => void;
   onCancel: () => void;
 };
 
-const RequestEventForm: FC<RequetsEventFormProps> = ({
-  onSubmit,
-  onCancel
-}) => {
+const RequestEventForm: FC<RequestsEventFormProps> = ({
+                                                        onSubmit,
+                                                        onCancel
+                                                      }) => {
   const [formValues, setFormValues] = useState<Event>({
     summary: "",
     location: "",
@@ -32,7 +32,7 @@ const RequestEventForm: FC<RequetsEventFormProps> = ({
 
   const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formValues);
+    onSubmit(formValues.allDay, formValues.description, formValues.end, formValues.start, formValues.location, formValues.summary);
   };
 
   return (
@@ -88,7 +88,7 @@ const RequestEventForm: FC<RequetsEventFormProps> = ({
         <Checkbox
           value={formValues.allDay}
           onChange={(e) => handleChange(e.target.checked, "allDay")}
-          inputProps={{ "aria-label": "controlled" }}
+          inputProps={{"aria-label": "controlled"}}
         />
         <div className={styles["checkbox-label"]}>is all day?</div>
       </div>

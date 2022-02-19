@@ -18,6 +18,7 @@ import { setIsLogged } from "../../../store/auth/authSlice";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
 import RequestEventForm from "../../molecules/RequestEventForm";
 import { postScheduledThunk } from "../../../store/scheduled/thunks";
+import { postRequestThunk } from "../../../store/requests/thunks";
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
@@ -76,6 +77,18 @@ const Dashboard: FC = () => {
     setIsScheduledOpen(false);
   };
 
+  const onRequestsSubmit = async (allDay: boolean, description: string, end: string, start: string, location: string, summary: string) => {
+    const data = await dispatch(
+      postRequestThunk({allDay, description, end, start, location, summary})
+    ).unwrap();
+    if (!data.error) {
+      toast.success("Has scheduled event");
+    } else {
+      toast.error("Schedule error");
+    }
+    setIsRequestOpen(false);
+  }
+
   return (
     <div className={styles["calendar-container"]}>
       <ModalComponent
@@ -93,7 +106,7 @@ const Dashboard: FC = () => {
         onClose={() => setIsRequestOpen(false)}
       >
         <RequestEventForm
-          onSubmit={onScheduleSubmit}
+          onSubmit={onRequestsSubmit}
           onCancel={() => setIsRequestOpen(false)}
         />
       </ModalComponent>
