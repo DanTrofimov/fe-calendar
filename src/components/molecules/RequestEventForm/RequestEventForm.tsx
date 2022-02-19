@@ -6,8 +6,10 @@ import {Event} from "../../../domain";
 import styles from "./styles.module.css";
 
 type RequestsEventFormProps = {
-  onSubmit: (allDay: boolean, description: string, end: string, start: string, location: string, summary: string) => void;
+  onSubmit?: (allDay: boolean, description: string, end: string, start: string, location: string, summary: string) => void;
   onCancel: () => void;
+  onReject?: (id: string) => void;
+  onApprove?: (id: string) => void;
 };
 
 const RequestEventForm: FC<RequestsEventFormProps> = ({
@@ -32,7 +34,9 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
 
   const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(formValues.allDay, formValues.description, formValues.end, formValues.start, formValues.location, formValues.summary);
+    if (onSubmit) {
+      onSubmit(formValues.allDay, formValues.description, formValues.end, formValues.start, formValues.location, formValues.summary);
+    }
   };
 
   return (

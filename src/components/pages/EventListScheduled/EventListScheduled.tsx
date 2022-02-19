@@ -34,7 +34,7 @@ const EventListScheduled: FC = () => {
       <div className={styles.content}>
         <h1>Scheduled Events</h1>
         {scheduled?.length
-          ? (<EventList list={scheduled} buttonTitle='Cancel' cancelButtonFunction={handleDeleteScheduled}/>)
+          ? (<EventList list={scheduled} buttonTitle='Cancel' handleButtonClick={handleDeleteScheduled}/>)
           : (<p>Уведомлений не создано или они были выполнены</p>)
         }
       </div>

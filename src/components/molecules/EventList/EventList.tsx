@@ -6,14 +6,14 @@ import ItemList from '../../atoms/ItemList'
 type EventListProps = {
   list: Scheduled[] | Request[];
   buttonTitle: string;
-  cancelButtonFunction: (id: string) => void;
+  handleButtonClick: (id: string) => void;
 }
 
-const EventList: FC<EventListProps> = ({list, buttonTitle, cancelButtonFunction}) => (
+const EventList: FC<EventListProps> = ({list, buttonTitle, handleButtonClick}) => (
     <div className={styles["calendar-container"]}>
       {list.map((item) => (
         <ItemList key={item._id} summary={item.summary} date={item.date}
-                  buttonTitle={buttonTitle} cancelButtonFunction={cancelButtonFunction} id={item._id}/>
+                  buttonTitle={buttonTitle} handleButtonClick={handleButtonClick} id={item._id}/>
       ))}
     </div>)
 

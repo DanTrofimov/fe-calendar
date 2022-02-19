@@ -6,12 +6,12 @@ type ItemListProps = {
   summary: string;
   date: string;
   buttonTitle: string;
-  cancelButtonFunction: (id: string) => void;
+  handleButtonClick: (id: string) => void;
 };
 
-const ItemList: FC<ItemListProps> = ({ summary, date, buttonTitle, cancelButtonFunction, id}) => {
+const ItemList: FC<ItemListProps> = ({ summary, date, buttonTitle, handleButtonClick, id}) => {
   const handleClick = () => {
-    cancelButtonFunction(id as string);
+    handleButtonClick(id as string);
   }
 
   return (
