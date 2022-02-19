@@ -94,7 +94,7 @@ const Dashboard: FC = () => {
       >
         <RequestEventForm
           onSubmit={onScheduleSubmit}
-          onCancel={() => setIsScheduledOpen(false)}
+          onCancel={() => setIsRequestOpen(false)}
         />
       </ModalComponent>
       <Header
