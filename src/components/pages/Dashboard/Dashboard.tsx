@@ -16,13 +16,15 @@ import { Routes } from "../../../constants/routes";
 import { selectUser } from "../../../store/user/selectors";
 import { setIsLogged } from "../../../store/auth/authSlice";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
+import RequestEventForm from "../../molecules/RequestEventForm";
 import { postScheduledThunk } from "../../../store/scheduled/thunks";
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isScheduledOpen, setIsScheduledOpen] = useState(false);
+  const [isRequestOpen, setIsRequestOpen] = useState(true);
   const [selectedEventId, setSelectedEventId] = useState("");
 
   useEffect(() => {
@@ -58,27 +60,41 @@ const Dashboard: FC = () => {
   const onDayClick = (e: any) => {
     if (e?.events[0]?.id) {
       setSelectedEventId(e.events[0].id);
-      setIsOpen(true);
+      setIsScheduledOpen(true);
     }
   };
 
   const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
-    const data = await dispatch(postScheduledThunk({ _id, uid, date })).unwrap();
+    const data = await dispatch(
+      postScheduledThunk({ _id, uid, date })
+    ).unwrap();
     if (!data.error) {
       toast.success("Has scheduled event");
     } else {
       toast.error("Schedule error");
     }
-    setIsOpen(false);
+    setIsScheduledOpen(false);
   };
 
   return (
     <div className={styles["calendar-container"]}>
-      <ModalComponent isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <ModalComponent
+        isOpen={isScheduledOpen}
+        onClose={() => setIsScheduledOpen(false)}
+      >
         <ScheduleEventForm
           event={selectedEvent}
           onSubmit={onScheduleSubmit}
-          onCancel={() => setIsOpen(false)}
+          onCancel={() => setIsScheduledOpen(false)}
+        />
+      </ModalComponent>
+      <ModalComponent
+        isOpen={isRequestOpen}
+        onClose={() => setIsRequestOpen(false)}
+      >
+        <RequestEventForm
+          onSubmit={onScheduleSubmit}
+          onCancel={() => setIsRequestOpen(false)}
         />
       </ModalComponent>
       <Header
@@ -86,6 +102,7 @@ const Dashboard: FC = () => {
         buttonRouter={
           user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
         }
+        addButtonCallback={() => setIsRequestOpen(true)}
       />
       <div className={styles["year-select-container"]}>
         <YearSelect
