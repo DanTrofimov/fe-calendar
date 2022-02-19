@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "../../../store";
 import { selectEvents, selectLoading } from "../../../store/events/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
 import { getUserThunk } from "../../../store/user/thunks";
@@ -18,7 +19,7 @@ import ScheduleEventForm from "../../molecules/ScheduleEventForm";
 import { postScheduledThunk } from "../../../store/scheduled/thunks";
 
 const Dashboard: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
   const [isOpen, setIsOpen] = useState(false);
@@ -61,10 +62,14 @@ const Dashboard: FC = () => {
     }
   };
 
-  const onScheduleSubmit = (_id: string, uid: string, date: string) => {
-    dispatch(postScheduledThunk({ _id, uid, date }));
+  const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
+    const data = await dispatch(postScheduledThunk({ _id: "blablabla", uid, date })).unwrap();
+    if (!data.error) {
+      toast.info("Has scheduled event");
+    } else {
+      toast.error("Scedule error");
+    }
     setIsOpen(false);
-    toast.info("Has scheduled event");
   };
 
   return (
