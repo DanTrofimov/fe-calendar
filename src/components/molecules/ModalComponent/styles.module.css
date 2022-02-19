@@ -1,0 +1,15 @@
+.wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.close-icon {
+    position: absolute !important;
+    top: -27px;
+    right: -28px;
+}
+
+.close-icon:hover {
+    cursor: pointer;
+}

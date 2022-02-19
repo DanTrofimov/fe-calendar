@@ -1,0 +1,26 @@
+.date-input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-input-container input {
+    width: 155px;
+    height: 20px;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@media (max-width: 500px) {
+    .date-input-container input {
+        width: 140px;
+        height: 20px;
+    }
+}
