@@ -30,7 +30,7 @@ export const postRequestThunk = createAsyncThunk(
   }
 );
 
-export const deleteRequestThunk = createAsyncThunk('request/deleteScheduled', async (id: string) => {
+export const deleteRequestThunk = createAsyncThunk('request/deleteRequest', async (id: string) => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/request/${id}`, {
     method: "DELETE",
     credentials: "include",
@@ -71,7 +71,7 @@ export const postAdminRequestThunk = createAsyncThunk(
   }
 );
 
-export const deleteAdminRequestThunk = createAsyncThunk('request/deleteAdminScheduled', async (id: string) => {
+export const deleteAdminRequestThunk = createAsyncThunk('request/deleteAdminRequest', async (id: string) => {
   const response = await fetch(`${process.env.REACT_APP_API_URL}/request/${id}`, {
     method: "DELETE",
     credentials: "include",

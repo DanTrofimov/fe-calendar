@@ -1,5 +1,6 @@
 import React, {FC, useState} from "react";
-// import styles from "./styles.module.css";
+import {Button} from "@mui/material";
+import styles from "./styles.module.css";
 import RequestEventForm from "../../molecules/RequestEventForm";
 import ModalComponent from "../../molecules/ModalComponent";
 
@@ -45,11 +46,15 @@ const ItemList: FC<ItemListProps> = ({
     }
   }
 
+  const isoDate = new Date(date);
+  const formattedDate = `${isoDate.getDate()}/${isoDate.getMonth()}/${isoDate.getFullYear()}`;
+  const isDateValid = () => !Number.isNaN(isoDate.getTime())
+
   return (
-    <div>
+    <div className={styles.item}>
       <p>{summary}</p>
-      <span>{date}</span>
-      <button type='button' onClick={handleClick}>{buttonTitle}</button>
+      {isDateValid() && (<span>{formattedDate}</span>)}
+      <Button variant="contained" size="small" onClick={handleClick}>{buttonTitle}</Button>
       <ModalComponent
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
