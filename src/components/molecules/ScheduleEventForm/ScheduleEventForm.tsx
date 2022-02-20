@@ -17,7 +17,7 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   onSubmit,
   onCancel
 }) => {
-  const [scheduleDate, setScheduleDate] = useState(new Date(Date.now() + 5 * (60 * 1000)));
+  const [scheduleDate, setScheduleDate] = useState(new Date(Date.now() + 10 * (60 * 1000)));
 
   const {
     _id,
