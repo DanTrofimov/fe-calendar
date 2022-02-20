@@ -27,12 +27,15 @@ const Dashboard: FC = () => {
   const [isScheduledOpen, setIsScheduledOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState("");
+  const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getUserThunk());
     dispatch(getEventsThunk(year));
-  }, [dispatch, year]);
+
+    if (user?._id) dispatch(setIsLogged(true));
+  }, [dispatch, user?._id, year]);
 
   const generateArrayOfYears = () => {
     const max = new Date().getFullYear();
@@ -49,9 +52,6 @@ const Dashboard: FC = () => {
 
   const events: Event[] = useSelector(selectEvents);
   const isLoading: boolean = useSelector(selectLoading);
-  const user: User | null = useSelector(selectUser);
-
-  if (user?._id) dispatch(setIsLogged(true));
 
   const selectedEvent =
     events.find(
