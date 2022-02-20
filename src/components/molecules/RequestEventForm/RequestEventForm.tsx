@@ -162,7 +162,7 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
           <Button variant="contained" size="small" onClick={onCancel}>
             Cancel
           </Button>
-          <Button variant="contained" color="success" size="small">
+          <Button variant="contained" color="success" size="small" type='submit'>
             Request
           </Button>
         </div>)

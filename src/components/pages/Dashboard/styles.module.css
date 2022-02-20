@@ -1,6 +1,7 @@
 .calendar-container {
   padding-top: 20px;
   max-width: 900px;
+  /*min-height: calc(100vh - 20px);*/
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
