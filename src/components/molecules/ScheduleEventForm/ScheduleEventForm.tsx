@@ -17,7 +17,7 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   onSubmit,
   onCancel
 }) => {
-  const [scheduleDate, setScheduleDate] = useState(new Date());
+  const [scheduleDate, setScheduleDate] = useState(new Date(Date.now() + 5 * (60 * 1000)));
 
   const {
     _id,
@@ -61,6 +61,7 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateTimePicker
             label=""
+            minDateTime={Date.now() + 5 * (60 * 1000)}
             value={scheduleDate}
             onChange={handleChangeDate}
             renderInput={(params) => <TextField size="small" {...params} />}
