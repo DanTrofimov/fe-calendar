@@ -47,7 +47,7 @@ const ItemList: FC<ItemListProps> = ({
   }
 
   const isoDate = new Date(date);
-  const formattedDate = `${isoDate.getDate()}/${isoDate.getMonth()}/${isoDate.getFullYear()}`;
+  const formattedDate = `${isoDate.getDate()}/${isoDate.getMonth() + 1}/${isoDate.getFullYear()}`;
   const isDateValid = () => !Number.isNaN(isoDate.getTime())
 
   return (
