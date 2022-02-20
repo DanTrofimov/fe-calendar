@@ -1,5 +1,5 @@
-import React, {FC, useState} from "react";
-import {Button} from "@mui/material";
+import React, { FC, useState } from "react";
+import { Button } from "@mui/material";
 import styles from "./styles.module.css";
 import RequestEventForm from "../../molecules/RequestEventForm";
 import ModalComponent from "../../molecules/ModalComponent";
@@ -21,20 +21,20 @@ type ItemListProps = {
 };
 
 const ItemList: FC<ItemListProps> = ({
-                                       summary,
-                                       date,
-                                       end,
-                                       start,
-                                       description,
-                                       location,
-                                       allDay,
-                                       buttonTitle,
-                                       handleButtonClick,
-                                       id,
-                                       handleDeleteRequest,
-                                       handleApproveRequest,
-                                       isNeedModal
-                                     }) => {
+  summary,
+  date,
+  end,
+  start,
+  description,
+  location,
+  allDay,
+  buttonTitle,
+  handleButtonClick,
+  id,
+  handleDeleteRequest,
+  handleApproveRequest,
+  isNeedModal
+}) => {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
 
   const handleClick = () => {
@@ -44,17 +44,21 @@ const ItemList: FC<ItemListProps> = ({
     if (isNeedModal) {
       setIsRequestOpen(true);
     }
-  }
+  };
 
   const isoDate = new Date(date);
-  const formattedDate = `${isoDate.getDate()}/${isoDate.getMonth() + 1}/${isoDate.getFullYear()}`;
-  const isDateValid = () => !Number.isNaN(isoDate.getTime())
+  const formattedDate = `${isoDate.getDate()}/${
+    isoDate.getMonth() + 1
+  }/${isoDate.getFullYear()}`;
+  const isDateValid = () => !Number.isNaN(isoDate.getTime());
 
   return (
     <div className={styles.item}>
       <p>{summary}</p>
-      {isDateValid() && (<span>{formattedDate}</span>)}
-      <Button variant="contained" size="small" onClick={handleClick}>{buttonTitle}</Button>
+      {isDateValid() && <span>{formattedDate}</span>}
+      <Button variant="contained" size="small" onClick={handleClick}>
+        {buttonTitle}
+      </Button>
       <ModalComponent
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
@@ -75,6 +79,7 @@ const ItemList: FC<ItemListProps> = ({
         />
       </ModalComponent>
     </div>
-  )
-}
+  );
+};
+
 export default ItemList;

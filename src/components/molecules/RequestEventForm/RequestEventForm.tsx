@@ -1,41 +1,48 @@
-import React, {FC, useState} from "react";
-import {Button, TextField, Checkbox} from "@mui/material";
-import {DateTimePicker, LocalizationProvider} from "@mui/lab";
+import React, { FC, useState } from "react";
+import { Button, TextField, Checkbox } from "@mui/material";
+import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import {Event} from "../../../domain";
+import { Event } from "../../../domain";
 import styles from "./styles.module.css";
 
 type RequestsEventFormProps = {
-  onSubmit?: (allDay: boolean, description: string, end: string, start: string, location: string, summary: string) => void;
+  onSubmit?: (
+    allDay: boolean,
+    description: string,
+    end: string,
+    start: string,
+    location: string,
+    summary: string
+  ) => void;
   onCancel: () => void;
   onReject?: (id: string) => void;
   onApprove?: (id: string) => void;
-  summary?: string,
-  location?: string,
-  start?: string,
-  end?: string,
-  description?: string,
-  allDay?: boolean,
-  readOnly?: boolean,
-  id?: string,
+  summary?: string;
+  location?: string;
+  start?: string;
+  end?: string;
+  description?: string;
+  allDay?: boolean;
+  readOnly?: boolean;
+  id?: string;
   setIsRequestOpen?: (arg0: boolean) => void;
 };
 
 const RequestEventForm: FC<RequestsEventFormProps> = ({
-                                                        onSubmit,
-                                                        onCancel,
-                                                        onApprove,
-                                                        onReject,
-                                                        summary,
-                                                        location,
-                                                        start,
-                                                        end,
-                                                        description,
-                                                        allDay,
-                                                        readOnly,
-                                                        id,
-                                                        setIsRequestOpen
-                                                      }) => {
+  onSubmit,
+  onCancel,
+  onApprove,
+  onReject,
+  summary,
+  location,
+  start,
+  end,
+  description,
+  allDay,
+  readOnly,
+  id,
+  setIsRequestOpen
+}) => {
   const [formValues, setFormValues] = useState<Event>({
     summary: summary || "",
     location: location || "",
@@ -61,7 +68,8 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
         formValues.end,
         formValues.start,
         formValues.location,
-        formValues.summary);
+        formValues.summary
+      );
     }
   };
 
@@ -72,7 +80,7 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
     if (setIsRequestOpen) {
       setIsRequestOpen(false);
     }
-  }
+  };
 
   const handleReject = () => {
     if (onReject) {
@@ -81,7 +89,7 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
     if (setIsRequestOpen) {
       setIsRequestOpen(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={onFormSubmit}>
@@ -145,28 +153,44 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
           value={formValues.allDay}
           disabled={readOnly}
           onChange={(e) => handleChange(e.target.checked, "allDay")}
-          inputProps={{"aria-label": "controlled"}}
+          inputProps={{ "aria-label": "controlled" }}
         />
         <div className={styles["checkbox-label"]}>is all day?</div>
       </div>
-      {onApprove && onReject
-        ? (<div className={styles["button-container"]}>
-          <Button variant="contained" color="error" size="small" onClick={handleReject}>
+      {onApprove && onReject ? (
+        <div className={styles["button-container"]}>
+          <Button
+            variant="contained"
+            color="error"
+            size="small"
+            onClick={handleReject}
+          >
             Reject
           </Button>
-          <Button variant="contained" color="success" size="small" onClick={handleAccept}>
+          <Button
+            variant="contained"
+            color="success"
+            size="small"
+            onClick={handleAccept}
+          >
             Approve
           </Button>
-        </div>)
-        : (<div className={styles["button-container"]}>
+        </div>
+      ) : (
+        <div className={styles["button-container"]}>
           <Button variant="contained" size="small" onClick={onCancel}>
             Cancel
           </Button>
-          <Button variant="contained" color="success" size="small" type='submit'>
+          <Button
+            variant="contained"
+            color="success"
+            size="small"
+            type="submit"
+          >
             Request
           </Button>
-        </div>)
-      }
+        </div>
+      )}
     </form>
   );
 };
