@@ -3,7 +3,7 @@ import { postScheduledThunk, getScheduledThunk, deleteScheduledThunk } from "./t
 import { Scheduled} from "../../domain";
 
 export type ScheduledState = {
-  scheduled: Scheduled[] | null;
+  scheduled: Scheduled[] | undefined;
 };
 
 const initialScheduleState: ScheduledState = {
@@ -29,8 +29,8 @@ const scheduledSlice = createSlice({
     )
     builder.addCase(
       deleteScheduledThunk.fulfilled,
-      (state: ScheduledState, action: PayloadAction<Scheduled[]>) => {
-        state.scheduled = action.payload;
+      (state: ScheduledState, action: PayloadAction<Scheduled>) => {
+        state.scheduled = state.scheduled?.filter((item) => item._id !== action.payload._id);
       }
     )
   }

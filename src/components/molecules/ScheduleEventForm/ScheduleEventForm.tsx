@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -6,18 +6,18 @@ import { format } from "date-fns";
 import { Event } from "../../../domain";
 import styles from "./styles.module.css";
 
-type SceduleEventFormProps = {
+type ScheduleEventFormProps = {
   event: Event;
   onSubmit: (id: string, uid: string, scheduledDate: string) => void;
   onCancel: () => void;
 };
 
-const SceduleEventForm: FC<SceduleEventFormProps> = ({
+const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   event,
   onSubmit,
   onCancel
 }) => {
-  const [scheduleDate, setScheduleDate] = useState(new Date());
+  const [scheduleDate, setScheduleDate] = useState(new Date(Date.now() + 10 * (60 * 1000)));
 
   const {
     _id,
@@ -61,6 +61,7 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateTimePicker
             label=""
+            minDateTime={Date.now() + 5 * (60 * 1000)}
             value={scheduleDate}
             onChange={handleChangeDate}
             renderInput={(params) => <TextField size="small" {...params} />}
@@ -71,7 +72,7 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
         <Button variant="contained" size="small" onClick={onCancel}>
           Cancel
         </Button>
-        <Button variant="contained" color="success" size="small" type="submit">
+        <Button variant="contained" color="success" size="small" type="submit" disabled={scheduleDate < new Date(Date.now() + 5 * (60 * 1000))}>
           Schedule
         </Button>
       </div>
@@ -79,4 +80,4 @@ const SceduleEventForm: FC<SceduleEventFormProps> = ({
   );
 };
 
-export default SceduleEventForm;
+export default ScheduleEventForm;

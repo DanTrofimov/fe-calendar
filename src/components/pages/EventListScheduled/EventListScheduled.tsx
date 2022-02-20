@@ -1,28 +1,42 @@
 import React, { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import {toast} from "react-toastify";
 import Header from "../../molecules/Header";
 import styles from "../Dashboard/styles.module.css";
-// import EventList from '../../molecules/EventList/EventList'
-import { getScheduledThunk } from "../../../store/scheduled/thunks";
+import EventList from '../../molecules/EventList/EventList'
+import {deleteScheduledThunk, getScheduledThunk} from "../../../store/scheduled/thunks";
 import { Scheduled } from "../../../domain";
 import { selectScheduled } from "../../../store/scheduled/selectors";
 import { Routes } from "../../../constants/routes";
+import {useAppDispatch} from "../../../store";
 
 const EventListScheduled: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getScheduledThunk());
   }, [dispatch]);
 
-  const scheduled: Scheduled[] | null = useSelector(selectScheduled);
+  const handleDeleteScheduled = async (id: string) => {
+    const data = await dispatch(deleteScheduledThunk(id)).unwrap();
+    if (!data.error) {
+      toast.success("Schedule cancelled");
+    } else {
+      toast.error("Schedule cancelled error");
+    }
+  }
 
-  console.log(scheduled);
+  const scheduled: Scheduled[] | undefined = useSelector(selectScheduled);
+
   return (
     <div className={styles["calendar-container"]}>
-      <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD} />
+      <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD}  />
       <div className={styles.content}>
         <h1>Scheduled Events</h1>
+        {scheduled?.length
+          ? (<EventList list={scheduled} buttonTitle='Cancel' handleButtonClick={handleDeleteScheduled}/>)
+          : (<p>Уведомлений не создано или они были выполнены</p>)
+        }
       </div>
     </div>
   );

@@ -35,8 +35,7 @@ export const postScheduledThunk = createAsyncThunk('request/postScheduled',
   })
 
 export const deleteScheduledThunk = createAsyncThunk('request/deleteScheduled',
-  async (notification: Notification) => {
-    const id = notification._id || notification.uid;
+  async (id: string) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/notification/${id}`, {
       method: "DELETE",
       credentials: "include",

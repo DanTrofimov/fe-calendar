@@ -37,7 +37,7 @@ function App() {
               component={EventListScheduled}
             />
           </Route>
-          <Redirect from="/" to={Routes.LOGIN}/>
+          <Redirect from="/" to={Routes.DASHBOARD}/>
         </Switch>
       </Router>
     </Provider>

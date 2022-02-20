@@ -17,7 +17,7 @@ const PrivateRoute: FC<PrivateRouteProps> = ({
 
   const user: User | null = useSelector(selectUser);
 
-  if (!user) {
+  if (!user?.email) {
     return <Redirect to={Routes.LOGIN}/>;
   }
 

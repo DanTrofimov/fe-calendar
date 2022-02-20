@@ -1,27 +1,74 @@
-import React, { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {FC, useEffect} from "react";
+import {useSelector} from "react-redux";
+import {toast} from "react-toastify";
 import Header from "../../molecules/Header";
 import styles from "../Dashboard/styles.module.css";
-import { getRequestThunk } from "../../../store/requests/thunks";
-import { selectRequests } from "../../../store/requests/selectors";
-import { Request } from "../../../domain";
-import { Routes } from "../../../constants/routes";
+import {
+  deleteAdminRequestThunk,
+  deleteRequestThunk,
+  getAdminRequestThunk,
+  getRequestThunk, postAdminRequestThunk
+} from "../../../store/requests/thunks";
+import {selectRequests} from "../../../store/requests/selectors";
+import {Request, Roles, User} from "../../../domain";
+import {Routes} from "../../../constants/routes";
+import {selectUser} from "../../../store/user/selectors";
+import {useAppDispatch} from "../../../store";
+import EventList from "../../molecules/EventList";
 
 const EventListRequests: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
-    dispatch(getRequestThunk());
-  }, [dispatch]);
+    if (user?.role === Roles.ADMIN) {
+      dispatch(getAdminRequestThunk());
+    } else {
+      dispatch(getRequestThunk())
+    }
+  }, [dispatch, user?.role]);
+
+  const handleDeleteRequest = async (id: string) => {
+    let data;
+    if (user?.role === Roles.ADMIN) {
+      data = await dispatch(deleteAdminRequestThunk(id)).unwrap();
+    } else {
+      data = await dispatch(deleteRequestThunk(id)).unwrap();
+    }
+    if (!data.error) {
+      toast.success("Request cancelled");
+    } else {
+      toast.error("Request cancelled error");
+    }
+  }
+
+  const handleApproveRequest = async (id: string) => {
+    const data = await dispatch(postAdminRequestThunk(id)).unwrap();
+
+    if (!data.error) {
+      toast.success("Request cancelled");
+    } else {
+      toast.error("Request cancelled error");
+    }
+  }
 
   const requests: Request[] | null = useSelector(selectRequests);
 
-  console.log(requests);
   return (
     <div className={styles["calendar-container"]}>
-      <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD} />
+      <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD}/>
       <div className={styles.content}>
         <h1>Requested events</h1>
+        {requests?.length
+          ? (<EventList
+              list={requests}
+              buttonTitle='More'
+              handleDeleteRequest={handleDeleteRequest}
+              handleApproveRequest={handleApproveRequest}
+              isNeedModal
+            />)
+          : (<p>Уведомлений не создано или они были выполнены</p>)
+        }
       </div>
     </div>
   );

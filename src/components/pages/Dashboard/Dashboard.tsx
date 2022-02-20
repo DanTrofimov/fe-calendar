@@ -1,37 +1,43 @@
-import React, { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { useAppDispatch } from "../../../store";
-import { selectEvents, selectLoading } from "../../../store/events/selectors";
-import { getEventsThunk } from "../../../store/events/thunks";
-import { getUserThunk } from "../../../store/user/thunks";
+import React, {FC, useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {toast} from "react-toastify";
+import {useAppDispatch} from "../../../store";
+import {selectEvents, selectLoading} from "../../../store/events/selectors";
+import {getEventsThunk} from "../../../store/events/thunks";
+import {getUserThunk} from "../../../store/user/thunks";
 import Header from "../../molecules/Header";
-import { Event, Roles, User } from "../../../domain";
+import {Event, Roles, User} from "../../../domain";
 import EventsCalendar from "../../organisms/EventsCalendar";
 import YearSelect from "../../atoms/YearSelect";
 import styles from "./styles.module.css";
-import { setLoading } from "../../../store/events/eventsSlice";
+import {setLoading} from "../../../store/events/eventsSlice";
 import ModalComponent from "../../molecules/ModalComponent/ModalComponent";
-import { Routes } from "../../../constants/routes";
-import { selectUser } from "../../../store/user/selectors";
-import { setIsLogged } from "../../../store/auth/authSlice";
+import {Routes} from "../../../constants/routes";
+import {selectUser} from "../../../store/user/selectors";
+import {setIsLogged} from "../../../store/auth/authSlice";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
 import RequestEventForm from "../../molecules/RequestEventForm";
-import { postScheduledThunk } from "../../../store/scheduled/thunks";
+import {postScheduledThunk} from "../../../store/scheduled/thunks";
+import {postRequestThunk} from "../../../store/requests/thunks";
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
   const [isScheduledOpen, setIsScheduledOpen] = useState(false);
-  const [isRequestOpen, setIsRequestOpen] = useState(true);
+  const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState("");
+  const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(setLoading(true));
     dispatch(getUserThunk());
     dispatch(getEventsThunk(year));
-  }, [dispatch, year]);
+
+    if (user?._id) dispatch(setIsLogged(true));
+  }, [dispatch, user?._id, year]);
 
   const generateArrayOfYears = () => {
     const max = new Date().getFullYear();
@@ -48,13 +54,10 @@ const Dashboard: FC = () => {
 
   const events: Event[] = useSelector(selectEvents);
   const isLoading: boolean = useSelector(selectLoading);
-  const user: User | null = useSelector(selectUser);
-
-  if (user?._id) dispatch(setIsLogged(true));
 
   const selectedEvent =
     events.find(
-      ({ uid, _id }) => uid === selectedEventId || _id === selectedEventId
+      ({uid, _id}) => uid === selectedEventId || _id === selectedEventId
     ) ?? events[0];
 
   const onDayClick = (e: any) => {
@@ -66,7 +69,7 @@ const Dashboard: FC = () => {
 
   const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
     const data = await dispatch(
-      postScheduledThunk({ _id, uid, date })
+      postScheduledThunk({_id, uid, date})
     ).unwrap();
     if (!data.error) {
       toast.success("Has scheduled event");
@@ -75,6 +78,23 @@ const Dashboard: FC = () => {
     }
     setIsScheduledOpen(false);
   };
+
+  const onRequestsSubmit = async (allDay: boolean,
+                                  description: string,
+                                  end: string,
+                                  start: string,
+                                  location: string,
+                                  summary: string) => {
+    const data = await dispatch(
+      postRequestThunk({allDay, description, end, start, location, summary})
+    ).unwrap();
+    if (!data.error) {
+      toast.success("Has scheduled event");
+    } else {
+      toast.error("Schedule error");
+    }
+    setIsRequestOpen(false);
+  }
 
   return (
     <div className={styles["calendar-container"]}>
@@ -93,7 +113,7 @@ const Dashboard: FC = () => {
         onClose={() => setIsRequestOpen(false)}
       >
         <RequestEventForm
-          onSubmit={onScheduleSubmit}
+          onSubmit={onRequestsSubmit}
           onCancel={() => setIsRequestOpen(false)}
         />
       </ModalComponent>
@@ -102,7 +122,8 @@ const Dashboard: FC = () => {
         buttonRouter={
           user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
         }
-        addButtonCallback={() => setIsRequestOpen(true)}
+
+        addButtonCallback={() => user?.role ? setIsRequestOpen(true) : history.push(Routes.LOGIN)}
       />
       <div className={styles["year-select-container"]}>
         <YearSelect
