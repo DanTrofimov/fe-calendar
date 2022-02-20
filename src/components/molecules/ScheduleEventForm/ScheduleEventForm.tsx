@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -72,7 +72,7 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
         <Button variant="contained" size="small" onClick={onCancel}>
           Cancel
         </Button>
-        <Button variant="contained" color="success" size="small" type="submit">
+        <Button variant="contained" color="success" size="small" type="submit" disabled={scheduleDate < new Date(Date.now() + 5 * (60 * 1000))}>
           Schedule
         </Button>
       </div>
