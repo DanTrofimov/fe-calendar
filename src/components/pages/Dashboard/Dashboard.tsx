@@ -1,5 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useAppDispatch} from "../../../store";
 import {selectEvents, selectLoading} from "../../../store/events/selectors";
@@ -22,6 +23,7 @@ import {postRequestThunk} from "../../../store/requests/thunks";
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const [year, setYear] = useState(new Date().getFullYear().toString());
 
   const [isScheduledOpen, setIsScheduledOpen] = useState(false);
@@ -120,7 +122,8 @@ const Dashboard: FC = () => {
         buttonRouter={
           user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
         }
-        addButtonCallback={() => setIsRequestOpen(true)}
+
+        addButtonCallback={() => user?.role ? setIsRequestOpen(true) : history.push(Routes.LOGIN)}
       />
       <div className={styles["year-select-container"]}>
         <YearSelect

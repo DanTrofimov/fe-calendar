@@ -30,7 +30,7 @@ const scheduledSlice = createSlice({
     builder.addCase(
       deleteScheduledThunk.fulfilled,
       (state: ScheduledState, action: PayloadAction<Scheduled>) => {
-        state.scheduled = state.scheduled?.filter((item) => item !== action.payload);
+        state.scheduled = state.scheduled?.filter((item) => item._id !== action.payload._id);
       }
     )
   }

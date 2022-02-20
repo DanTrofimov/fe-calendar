@@ -46,14 +46,14 @@ const requestSlice = createSlice({
     );
     builder.addCase(
       postAdminRequestThunk.fulfilled,
-      (state: RequestsState, action: PayloadAction<Request[]>) => {
-        state.requests = action.payload;
+      (state: RequestsState, action: PayloadAction<Request>) => {
+        state.requests = state.requests?.filter((item) => item._id !== action.payload._id);
       }
     )
     builder.addCase(
       deleteAdminRequestThunk.fulfilled,
-      (state: RequestsState, action: PayloadAction<Request[]>) => {
-        state.requests = action.payload;
+      (state: RequestsState, action: PayloadAction<Request>) => {
+        state.requests = state.requests?.filter((item) => item._id !== action.payload._id);
       }
     )
   }
