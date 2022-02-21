@@ -34,7 +34,7 @@ const AdminRequestEventForm: FC<AdminRequestEventFormProps> = ({
     new Date(Date.now() + 10 * (60 * 1000))
   );
 
-  const { summary, location, start, end, description, allDay, id } = eventData;
+  const { summary, location, start, end, description, allDay } = eventData;
 
   const [formValues, setFormValues] = useState<Event>({
     summary: summary || "",
@@ -66,23 +66,23 @@ const AdminRequestEventForm: FC<AdminRequestEventFormProps> = ({
     }
   };
 
-  const handleAccept = () => {
-    if (onApprove) {
-      onApprove(id as string);
-    }
-    if (setIsRequestOpen) {
-      setIsRequestOpen(false);
-    }
-  };
+//   const handleAccept = () => {
+//     if (onApprove) {
+//       onApprove(id as string);
+//     }
+//     if (setIsRequestOpen) {
+//       setIsRequestOpen(false);
+//     }
+//   };
 
-  const handleReject = () => {
-    if (onReject) {
-      onReject(id as string);
-    }
-    if (setIsRequestOpen) {
-      setIsRequestOpen(false);
-    }
-  };
+//   const handleReject = () => {
+//     if (onReject) {
+//       onReject(id as string);
+//     }
+//     if (setIsRequestOpen) {
+//       setIsRequestOpen(false);
+//     }
+//   };
 
   return (
     <form onSubmit={onFormSubmit}>
