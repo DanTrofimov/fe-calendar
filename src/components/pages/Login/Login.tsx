@@ -13,14 +13,15 @@ const Login: FC = () => {
   const history = useHistory();
 
   const onLogin = async (email: string, password: string) => {
-    const { error } = await dispatch(
+    const data = await dispatch(
       loginThunk({
         email,
         password
       })
     ).unwrap();
 
-    if (error) {
+    // TODO: getting message instead error at the response, need to replace
+    if (data.error) {
       toast.error("Ошибка");
     } else {
       toast.info(email);
