@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../../store";
 import AuthContainer from "../../molecules/AuthContainer";
 import AuthForm from "../../molecules/AuthForm";
 import { Routes } from "../../../constants/routes";
-import { loginThunk, signUpThunk } from "../../../store/auth/thunks";
+import { signUpThunk } from "../../../store/auth/thunks";
 import { cleanInfo } from "../../../store/auth/authSlice";
 
 const SignUp: FC = () => {

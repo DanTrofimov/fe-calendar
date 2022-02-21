@@ -6,15 +6,6 @@ import styles from "./styles.module.css";
 
 type AdminRequestEventInfoProps = {
   eventData: Request | Scheduled;
-  onSubmit?: (
-    allDay: boolean,
-    description: string,
-    end: string,
-    start: string,
-    location: string,
-    summary: string
-  ) => void;
-  onCancel: () => void;
   onReject?: (id: string) => void;
   onApprove?: (id: string) => void;
   setIsRequestOpen?: (arg0: boolean) => void;
@@ -22,8 +13,6 @@ type AdminRequestEventInfoProps = {
 
 const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
   eventData,
-  onSubmit,
-  onCancel,
   onApprove,
   onReject,
   setIsRequestOpen

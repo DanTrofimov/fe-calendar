@@ -55,7 +55,6 @@ const ItemList: FC<ItemListProps> = ({
         <AdminRequestEventInfo
           onApprove={handleApproveRequest}
           onReject={handleDeleteRequest}
-          onCancel={() => setIsRequestOpen(false)}
           eventData={eventData}
           setIsRequestOpen={setIsRequestOpen}
         />

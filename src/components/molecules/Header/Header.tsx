@@ -71,7 +71,7 @@ const Header: FC<HeaderProps> = ({
           </IconButton>
           <Link to={buttonRouter}>
             <Button size="small" variant="contained" color="success">
-              {buttonTitle} { isLogged.toString() }
+              {buttonTitle}
             </Button>
           </Link>
         </div>
