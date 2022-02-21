@@ -15,7 +15,6 @@ import { setLoading } from "../../../store/events/eventsSlice";
 import ModalComponent from "../../molecules/ModalComponent/ModalComponent";
 import { Routes } from "../../../constants/routes";
 import { selectUser } from "../../../store/user/selectors";
-import { setIsLogged } from "../../../store/auth/authSlice";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
 import RequestEventForm from "../../molecules/RequestEventForm";
 import { postScheduledThunk } from "../../../store/scheduled/thunks";
@@ -35,8 +34,6 @@ const Dashboard: FC = () => {
     dispatch(setLoading(true));
     dispatch(getUserThunk());
     dispatch(getEventsThunk(year));
-
-    if (user?._id) dispatch(setIsLogged(true));
   }, [dispatch, user?._id, year]);
 
   const generateArrayOfYears = () => {
@@ -79,21 +76,14 @@ const Dashboard: FC = () => {
     setIsScheduledOpen(false);
   };
 
-  const onRequestsSubmit = async (
-    allDay: boolean,
-    description: string,
-    end: string,
-    start: string,
-    location: string,
-    summary: string
-  ) => {
+  const onRequestSubmit = async (event: Event) => {
     const data = await dispatch(
-      postRequestThunk({ allDay, description, end, start, location, summary })
+      postRequestThunk(event)
     ).unwrap();
     if (!data.error) {
-      toast.success("Has scheduled event");
+      toast.success("Has requested event");
     } else {
-      toast.error("Schedule error");
+      toast.error("Request error");
     }
     setIsRequestOpen(false);
   };
@@ -115,7 +105,7 @@ const Dashboard: FC = () => {
         onClose={() => setIsRequestOpen(false)}
       >
         <RequestEventForm
-          onSubmit={onRequestsSubmit}
+          onSubmit={onRequestSubmit}
           onCancel={() => setIsRequestOpen(false)}
         />
       </ModalComponent>

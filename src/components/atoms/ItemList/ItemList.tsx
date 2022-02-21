@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Button } from "@mui/material";
 import styles from "./styles.module.css";
-import RequestEventForm from "../../molecules/RequestEventForm";
+import AdminRequestEventForm from "../../molecules/AdminRequestEventForm";
 import ModalComponent from "../../molecules/ModalComponent";
 import { Request, Scheduled } from "../../../domain";
 
@@ -24,16 +24,7 @@ const ItemList: FC<ItemListProps> = ({
 }) => {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
 
-  const {
-    summary,
-    date,
-    end,
-    start,
-    description,
-    location,
-    allDay,
-    _id: id
-  } = eventData;
+  const { summary, date, _id: id } = eventData;
 
   const handleClick = () => {
     if (handleButtonClick) {
@@ -61,18 +52,11 @@ const ItemList: FC<ItemListProps> = ({
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
       >
-        <RequestEventForm
+        <AdminRequestEventForm
           onApprove={handleApproveRequest}
           onReject={handleDeleteRequest}
           onCancel={() => setIsRequestOpen(false)}
-          summary={summary}
-          location={location}
-          start={start}
-          end={end}
-          description={description}
-          allDay={allDay}
-          readOnly
-          id={id}
+          eventData={eventData}
           setIsRequestOpen={setIsRequestOpen}
         />
       </ModalComponent>

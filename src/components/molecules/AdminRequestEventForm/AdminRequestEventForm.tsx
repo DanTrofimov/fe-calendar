@@ -1,9 +1,7 @@
-import React, { FC, useState } from "react";
-import { Button, TextField } from "@mui/material";
-import { DateTimePicker, LocalizationProvider } from "@mui/lab";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import React, { FC } from "react";
+import { Button } from "@mui/material";
 import { format } from "date-fns";
-import { Request, Scheduled, Event } from "../../../domain";
+import { Request, Scheduled } from "../../../domain";
 import styles from "./styles.module.css";
 
 type AdminRequestEventFormProps = {
@@ -30,64 +28,72 @@ const AdminRequestEventForm: FC<AdminRequestEventFormProps> = ({
   onReject,
   setIsRequestOpen
 }) => {
-  const [scheduleDate, setScheduleDate] = useState(
-    new Date(Date.now() + 10 * (60 * 1000))
-  );
+  const {
+    summary,
+    location,
+    start,
+    end,
+    description,
+    allDay,
+    _id: id
+  } = eventData;
 
-  const { summary, location, start, end, description, allDay } = eventData;
+  const dateFormat = "LLL d hh:mm b";
 
-  const [formValues, setFormValues] = useState<Event>({
-    summary: summary || "",
-    location: location || "",
-    start: start || new Date().toISOString(),
-    end: end || new Date().toISOString(),
-    description: description || "",
-    allDay: allDay || false
-  });
+  const range = `${format(new Date(start), dateFormat)} - ${format(
+    new Date(end),
+    dateFormat
+  )}`;
 
-  const handleChange = (newValue: any, name: string) => {
-    setFormValues({
-      ...formValues,
-      [name]: newValue
-    });
-  };
-
-  const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (onSubmit) {
-      onSubmit(
-        formValues.allDay,
-        formValues.description,
-        formValues.end,
-        formValues.start,
-        formValues.location,
-        formValues.summary
-      );
+  const handleAccept = () => {
+    if (onApprove) {
+      onApprove(id as string);
+    }
+    if (setIsRequestOpen) {
+      setIsRequestOpen(false);
     }
   };
 
-//   const handleAccept = () => {
-//     if (onApprove) {
-//       onApprove(id as string);
-//     }
-//     if (setIsRequestOpen) {
-//       setIsRequestOpen(false);
-//     }
-//   };
-
-//   const handleReject = () => {
-//     if (onReject) {
-//       onReject(id as string);
-//     }
-//     if (setIsRequestOpen) {
-//       setIsRequestOpen(false);
-//     }
-//   };
+  const handleReject = () => {
+    if (onReject) {
+      onReject(id as string);
+    }
+    if (setIsRequestOpen) {
+      setIsRequestOpen(false);
+    }
+  };
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <p>Here will be JSX</p>
-    </form>
+    <div>
+      <h2>{summary}</h2>
+      <p>📍 {location}</p>
+      <p>📆 {range}</p>
+      <p>Весь день: {allDay ? "✔️" : "❌"}</p>
+      <p>
+        🔗{" "}
+        <a href={description} target="_blank" rel="noreferrer">
+          Подробнее о событии тут
+        </a>
+      </p>
+      <div className={styles["button-container"]}>
+        <Button
+          variant="contained"
+          color="error"
+          size="small"
+          onClick={handleReject}
+        >
+          Reject
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          size="small"
+          onClick={handleAccept}
+        >
+          Approve
+        </Button>
+      </div>
+    </div>
   );
 };
 
