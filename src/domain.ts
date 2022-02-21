@@ -36,4 +36,5 @@ export interface Request extends Event {
   _id: string;
   owner: string;
   date: string;
+  eventId: string;
 }

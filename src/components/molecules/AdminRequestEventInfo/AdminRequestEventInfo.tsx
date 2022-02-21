@@ -8,14 +8,14 @@ type AdminRequestEventInfoProps = {
   eventData: Request | Scheduled;
   onReject?: (id: string) => void;
   onApprove?: (id: string) => void;
-  setIsRequestOpen?: (arg0: boolean) => void;
+  setIsRequestOpen: (arg0: boolean) => void;
 };
 
 const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
   eventData,
   onApprove,
   onReject,
-  setIsRequestOpen
+  setIsRequestOpen,
 }) => {
   const {
     summary,
@@ -24,7 +24,7 @@ const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
     end,
     description,
     allDay,
-    _id: id
+    _id: id,
   } = eventData;
 
   const dateFormat = "LLL d hh:mm b";
@@ -38,22 +38,18 @@ const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
     if (onApprove) {
       onApprove(id as string);
     }
-    if (setIsRequestOpen) {
-      setIsRequestOpen(false);
-    }
+    setIsRequestOpen(false);
   };
 
   const handleReject = () => {
     if (onReject) {
       onReject(id as string);
     }
-    if (setIsRequestOpen) {
-      setIsRequestOpen(false);
-    }
+    setIsRequestOpen(false);
   };
 
   return (
-    <div>
+    <>
       <h2>{summary}</h2>
       <p>📍 {location}</p>
       <p>📆 {range}</p>
@@ -82,7 +78,7 @@ const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
           Approve
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 
