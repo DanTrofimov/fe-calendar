@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Request, Scheduled } from "../../../domain";
 import styles from "./styles.module.css";
 
-type AdminRequestEventFormProps = {
+type AdminRequestEventInfoProps = {
   eventData: Request | Scheduled;
   onSubmit?: (
     allDay: boolean,
@@ -20,7 +20,7 @@ type AdminRequestEventFormProps = {
   setIsRequestOpen?: (arg0: boolean) => void;
 };
 
-const AdminRequestEventForm: FC<AdminRequestEventFormProps> = ({
+const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
   eventData,
   onSubmit,
   onCancel,
@@ -97,4 +97,4 @@ const AdminRequestEventForm: FC<AdminRequestEventFormProps> = ({
   );
 };
 
-export default AdminRequestEventForm;
+export default AdminRequestEventInfo;

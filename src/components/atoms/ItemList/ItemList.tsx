@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Button } from "@mui/material";
 import styles from "./styles.module.css";
-import AdminRequestEventForm from "../../molecules/AdminRequestEventForm";
+import AdminRequestEventInfo from "../../molecules/AdminRequestEventInfo";
 import ModalComponent from "../../molecules/ModalComponent";
 import { Request, Scheduled } from "../../../domain";
 
@@ -52,7 +52,7 @@ const ItemList: FC<ItemListProps> = ({
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
       >
-        <AdminRequestEventForm
+        <AdminRequestEventInfo
           onApprove={handleApproveRequest}
           onReject={handleDeleteRequest}
           onCancel={() => setIsRequestOpen(false)}
