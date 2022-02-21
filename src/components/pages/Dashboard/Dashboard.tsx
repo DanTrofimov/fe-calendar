@@ -51,7 +51,6 @@ const Dashboard: FC = () => {
   };
 
   const years = generateArrayOfYears();
-
   const events: Event[] = useSelector(selectEvents);
   const isLoading: boolean = useSelector(selectLoading);
 
@@ -61,12 +60,11 @@ const Dashboard: FC = () => {
     ) ?? events[0];
 
   const onDayClick = (e: any) => {
-    if (user?.role === "admin") {
-      return;
-    }
-    if (e?.events[0]?.id) {
-      setSelectedEventId(e.events[0].id);
-      setIsScheduledOpen(true);
+    if (user?.role === Roles.USER) {
+      if (e?.events[0]?.id) {
+        setSelectedEventId(e.events[0].id);
+        setIsScheduledOpen(true);
+      }
     }
   };
 
@@ -108,7 +106,7 @@ const Dashboard: FC = () => {
   };
 
   const addButtonCallback = () => {
-    if (user?.role) {
+    if (isLogged) {
       setIsRequestOpen(true);
     } else {
       setIsAuthModalOpen(true);
@@ -152,7 +150,7 @@ const Dashboard: FC = () => {
           options={years}
           value={year}
           setValue={setYear}
-          label="Current year"
+          label="Chosen year"
         />
       </div>
       <EventsCalendar
