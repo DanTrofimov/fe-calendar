@@ -17,6 +17,7 @@ import { Routes } from "../../../constants/routes";
 import { selectUser } from "../../../store/user/selectors";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
 import RequestEventForm from "../../molecules/RequestEventForm";
+import AuthInfo from "../../molecules/AuthInfo";
 import { postScheduledThunk } from "../../../store/scheduled/thunks";
 import { postRequestThunk } from "../../../store/requests/thunks";
 
@@ -27,6 +28,7 @@ const Dashboard: FC = () => {
 
   const [isScheduledOpen, setIsScheduledOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(true);
   const [selectedEventId, setSelectedEventId] = useState("");
   const user: User | null = useSelector(selectUser);
 
@@ -77,9 +79,7 @@ const Dashboard: FC = () => {
   };
 
   const onRequestSubmit = async (event: Event) => {
-    const data = await dispatch(
-      postRequestThunk(event)
-    ).unwrap();
+    const data = await dispatch(postRequestThunk(event)).unwrap();
     if (!data.error) {
       toast.success("Has requested event");
     } else {
@@ -99,6 +99,12 @@ const Dashboard: FC = () => {
           onSubmit={onScheduleSubmit}
           onCancel={() => setIsScheduledOpen(false)}
         />
+      </ModalComponent>
+      <ModalComponent
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      >
+        <AuthInfo />
       </ModalComponent>
       <ModalComponent
         isOpen={isRequestOpen}
