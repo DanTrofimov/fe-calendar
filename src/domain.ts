@@ -22,8 +22,8 @@ export interface Event {
 
 export interface Scheduled {
   _id: string;
-  "eventId": string,
-  "date": string,
+  eventId: string,
+  date: string,
   summary: string,
   start: string;
   end: string;

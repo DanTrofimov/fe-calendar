@@ -24,16 +24,9 @@ const EventList: FC<EventListProps> = ({
     {list.map((item) => (
       <ItemList
         key={item._id}
-        summary={item.summary}
-        date={item?.date}
-        start={item?.start}
-        end={item?.end}
-        location={item?.location}
-        allDay={item?.allDay}
-        description={item?.description}
         buttonTitle={buttonTitle}
         handleButtonClick={handleButtonClick}
-        id={item._id}
+        eventData={item}
         handleApproveRequest={handleApproveRequest}
         handleDeleteRequest={handleDeleteRequest}
         isNeedModal={isNeedModal}

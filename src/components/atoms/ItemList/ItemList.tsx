@@ -3,16 +3,10 @@ import { Button } from "@mui/material";
 import styles from "./styles.module.css";
 import RequestEventForm from "../../molecules/RequestEventForm";
 import ModalComponent from "../../molecules/ModalComponent";
+import { Request, Scheduled } from "../../../domain";
 
 type ItemListProps = {
-  id: string;
-  summary: string;
-  date: string;
-  end?: string;
-  start?: string;
-  description?: string;
-  location?: string;
-  allDay?: boolean;
+  eventData: Request | Scheduled;
   buttonTitle: string;
   isNeedModal?: boolean;
   handleButtonClick?: (id: string) => void;
@@ -21,21 +15,25 @@ type ItemListProps = {
 };
 
 const ItemList: FC<ItemListProps> = ({
-  summary,
-  date,
-  end,
-  start,
-  description,
-  location,
-  allDay,
+  eventData,
   buttonTitle,
   handleButtonClick,
-  id,
   handleDeleteRequest,
   handleApproveRequest,
   isNeedModal
 }) => {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
+
+  const {
+    summary,
+    date,
+    end,
+    start,
+    description,
+    location,
+    allDay,
+    _id: id
+  } = eventData;
 
   const handleClick = () => {
     if (handleButtonClick) {
