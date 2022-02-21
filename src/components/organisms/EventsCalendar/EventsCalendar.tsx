@@ -21,8 +21,8 @@ const EventsCalendar: FC<EventsCalendarProps> = ({
   onDayClick
 }) => {
   const preparedEvents = events.map(
-    ({ uid, summary, start, end, location }) => ({
-      id: uid,
+    ({ uid, _id, summary, start, end, location }) => ({
+      id: uid || _id,
       location,
       startDate: new Date(start),
       endDate: new Date(end),
