@@ -61,6 +61,9 @@ const Dashboard: FC = () => {
     ) ?? events[0];
 
   const onDayClick = (e: any) => {
+    if (user?.role === "admin") {
+      return;
+    }
     if (e?.events[0]?.id) {
       setSelectedEventId(e.events[0].id);
       setIsScheduledOpen(true);
