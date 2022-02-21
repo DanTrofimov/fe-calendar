@@ -21,7 +21,7 @@ const Login: FC = () => {
     ).unwrap();
 
     // TODO: getting message instead error at the response, need to replace
-    if (data.error) {
+    if (data?.error) {
       toast.error("Ошибка");
     } else {
       toast.info(email);
