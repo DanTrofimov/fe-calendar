@@ -25,12 +25,13 @@ const Header: FC<HeaderProps> = ({
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const handleLogout = () => {
-    dispatch(logoutThunk());
+  const handleLogout = async () => {
+    await dispatch(logoutThunk()).unwrap();
     dispatch(clearUser());
 
     history.replace(Routes.DASHBOARD);
   };
+
   const user: User | null = useSelector(selectUser);
   const isLogged = !!user?._id;
 
@@ -70,7 +71,7 @@ const Header: FC<HeaderProps> = ({
           </IconButton>
           <Link to={buttonRouter}>
             <Button size="small" variant="contained" color="success">
-              {buttonTitle}
+              {buttonTitle} { isLogged.toString() }
             </Button>
           </Link>
         </div>
