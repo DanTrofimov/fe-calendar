@@ -17,7 +17,9 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
   onSubmit,
   onCancel
 }) => {
-  const [scheduleDate, setScheduleDate] = useState(new Date(Date.now() + 10 * (60 * 1000)));
+  const [scheduleDate, setScheduleDate] = useState(
+    new Date(Date.now() + 10 * (60 * 1000))
+  );
 
   const {
     _id,
@@ -72,7 +74,13 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
         <Button variant="contained" size="small" onClick={onCancel}>
           Cancel
         </Button>
-        <Button variant="contained" color="success" size="small" type="submit" disabled={scheduleDate < new Date(Date.now() + 5 * (60 * 1000))}>
+        <Button
+          variant="contained"
+          color="success"
+          size="small"
+          type="submit"
+          disabled={scheduleDate < new Date(Date.now() + 5 * (60 * 1000))}
+        >
           Schedule
         </Button>
       </div>

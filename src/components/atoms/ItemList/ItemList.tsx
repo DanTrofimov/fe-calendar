@@ -1,18 +1,12 @@
-import React, {FC, useState} from "react";
-import {Button} from "@mui/material";
+import React, { FC, useState } from "react";
+import { Button } from "@mui/material";
 import styles from "./styles.module.css";
-import RequestEventForm from "../../molecules/RequestEventForm";
+import AdminRequestEventInfo from "../../molecules/AdminRequestEventInfo";
 import ModalComponent from "../../molecules/ModalComponent";
+import { Request, Scheduled } from "../../../domain";
 
 type ItemListProps = {
-  id: string;
-  summary: string;
-  date: string;
-  end?: string;
-  start?: string;
-  description?: string;
-  location?: string;
-  allDay?: boolean;
+  eventData: Request | Scheduled;
   buttonTitle: string;
   isNeedModal?: boolean;
   handleButtonClick?: (id: string) => void;
@@ -21,21 +15,16 @@ type ItemListProps = {
 };
 
 const ItemList: FC<ItemListProps> = ({
-                                       summary,
-                                       date,
-                                       end,
-                                       start,
-                                       description,
-                                       location,
-                                       allDay,
-                                       buttonTitle,
-                                       handleButtonClick,
-                                       id,
-                                       handleDeleteRequest,
-                                       handleApproveRequest,
-                                       isNeedModal
-                                     }) => {
+  eventData,
+  buttonTitle,
+  handleButtonClick,
+  handleDeleteRequest,
+  handleApproveRequest,
+  isNeedModal
+}) => {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
+
+  const { summary, date, _id: id } = eventData;
 
   const handleClick = () => {
     if (handleButtonClick) {
@@ -44,37 +33,34 @@ const ItemList: FC<ItemListProps> = ({
     if (isNeedModal) {
       setIsRequestOpen(true);
     }
-  }
+  };
 
   const isoDate = new Date(date);
-  const formattedDate = `${isoDate.getDate()}/${isoDate.getMonth() + 1}/${isoDate.getFullYear()}`;
-  const isDateValid = () => !Number.isNaN(isoDate.getTime())
+  const formattedDate = `${isoDate.getDate()}/${
+    isoDate.getMonth() + 1
+  }/${isoDate.getFullYear()}`;
+  const isDateValid = () => !Number.isNaN(isoDate.getTime());
 
   return (
     <div className={styles.item}>
       <p>{summary}</p>
-      {isDateValid() && (<span>{formattedDate}</span>)}
-      <Button variant="contained" size="small" onClick={handleClick}>{buttonTitle}</Button>
+      {isDateValid() && <span>{formattedDate}</span>}
+      <Button variant="contained" size="small" onClick={handleClick}>
+        {buttonTitle}
+      </Button>
       <ModalComponent
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
       >
-        <RequestEventForm
+        <AdminRequestEventInfo
           onApprove={handleApproveRequest}
           onReject={handleDeleteRequest}
-          onCancel={() => setIsRequestOpen(false)}
-          summary={summary}
-          location={location}
-          start={start}
-          end={end}
-          description={description}
-          allDay={allDay}
-          readOnly
-          id={id}
+          eventData={eventData}
           setIsRequestOpen={setIsRequestOpen}
         />
       </ModalComponent>
     </div>
-  )
-}
+  );
+};
+
 export default ItemList;

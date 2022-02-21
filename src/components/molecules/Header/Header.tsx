@@ -5,7 +5,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { Link, useHistory } from "react-router-dom";
 import { Roles, User } from "../../../domain";
 import { selectUser } from "../../../store/user/selectors";
-import { selectAuthState } from "../../../store/auth/selectors";
 import styles from "./styles.module.css";
 import { useAppDispatch } from "../../../store";
 import { logoutThunk } from "../../../store/auth/thunks";
@@ -26,15 +25,15 @@ const Header: FC<HeaderProps> = ({
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const handleLogout = () => {
-    dispatch(logoutThunk());
+  const handleLogout = async () => {
+    await dispatch(logoutThunk()).unwrap();
     dispatch(clearUser());
 
     history.replace(Routes.DASHBOARD);
   };
 
-  const { isLogged } = useSelector(selectAuthState);
   const user: User | null = useSelector(selectUser);
+  const isLogged = !!user?._id;
 
   return (
     <div className={styles.header}>

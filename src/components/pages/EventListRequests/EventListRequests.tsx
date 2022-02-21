@@ -67,7 +67,7 @@ const EventListRequests: FC = () => {
               handleApproveRequest={handleApproveRequest}
               isNeedModal
             />)
-          : (<p>Уведомлений не создано или они были выполнены</p>)
+          : (<p>Запросов на добавление событий нет</p>)
         }
       </div>
     </div>
