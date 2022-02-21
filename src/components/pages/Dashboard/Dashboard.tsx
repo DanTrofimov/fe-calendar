@@ -28,9 +28,10 @@ const Dashboard: FC = () => {
 
   const [isScheduledOpen, setIsScheduledOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(true);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState("");
   const user: User | null = useSelector(selectUser);
+  const isLogged = !!user?._id;
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -67,15 +68,20 @@ const Dashboard: FC = () => {
   };
 
   const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
-    const data = await dispatch(
-      postScheduledThunk({ _id, uid, date })
-    ).unwrap();
-    if (!data.error) {
-      toast.success("Has scheduled event");
+    if (isLogged) {
+      const data = await dispatch(
+        postScheduledThunk({ _id, uid, date })
+      ).unwrap();
+      if (!data.error) {
+        toast.success("Has scheduled event");
+      } else {
+        toast.error("Schedule error");
+      }
+      setIsScheduledOpen(false);
     } else {
-      toast.error("Schedule error");
+      setIsScheduledOpen(false);
+      setIsAuthModalOpen(true);
     }
-    setIsScheduledOpen(false);
   };
 
   const onRequestSubmit = async (event: Event) => {
@@ -86,6 +92,24 @@ const Dashboard: FC = () => {
       toast.error("Request error");
     }
     setIsRequestOpen(false);
+  };
+
+  const onButtonRoute = () => {
+    if (isLogged) {
+      history.push(
+        user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
+      );
+    } else {
+      setIsAuthModalOpen(true);
+    }
+  };
+
+  const addButtonCallback = () => {
+    if (user?.role) {
+      setIsRequestOpen(true);
+    } else {
+      setIsAuthModalOpen(true);
+    }
   };
 
   return (
@@ -117,12 +141,8 @@ const Dashboard: FC = () => {
       </ModalComponent>
       <Header
         buttonTitle={user?.role === Roles.ADMIN ? "Requests" : "Scheduled"}
-        buttonRouter={
-          user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
-        }
-        addButtonCallback={() =>
-          user?.role ? setIsRequestOpen(true) : history.push(Routes.LOGIN)
-        }
+        onButtonRoute={onButtonRoute}
+        addButtonCallback={addButtonCallback}
       />
       <div className={styles["year-select-container"]}>
         <YearSelect

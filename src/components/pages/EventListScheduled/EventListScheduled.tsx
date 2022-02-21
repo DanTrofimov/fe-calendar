@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 import Header from "../../molecules/Header";
 import styles from "../Dashboard/styles.module.css";
 import EventList from "../../molecules/EventList/EventList";
@@ -15,6 +16,7 @@ import { useAppDispatch } from "../../../store";
 
 const EventListScheduled: FC = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getScheduledThunk());
@@ -31,9 +33,11 @@ const EventListScheduled: FC = () => {
 
   const scheduled: Scheduled[] | undefined = useSelector(selectScheduled);
 
+  const onButtonRoute = () => history.push(Routes.DASHBOARD);
+
   return (
     <div className={styles["calendar-container"]}>
-      <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD} />
+      <Header buttonTitle="Dashboard" onButtonRoute={onButtonRoute} />
       <div className={styles.content}>
         <h1>Scheduled Events</h1>
         {scheduled?.length ? (
