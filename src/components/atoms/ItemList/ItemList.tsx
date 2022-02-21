@@ -10,15 +10,13 @@ type ItemListProps = {
   eventData: Request | Scheduled;
   buttonTitle: string;
   isAdminItem?: boolean;
-  handleButtonClick?: (id: string) => void;
-  handleDeleteRequest?: (id: string) => void;
+  handleDeleteRequest: (id: string) => void;
   handleApproveRequest?: (id: string) => void;
 };
 
 const ItemList: FC<ItemListProps> = ({
   eventData,
   buttonTitle,
-  handleButtonClick,
   handleDeleteRequest,
   handleApproveRequest,
   isAdminItem,

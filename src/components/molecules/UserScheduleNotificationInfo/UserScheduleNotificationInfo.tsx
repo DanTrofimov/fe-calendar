@@ -7,7 +7,7 @@ import { Scheduled } from "../../../domain";
 type UserScheduleNotificationInfoProps = {
   eventData: Scheduled;
   setIsRequestOpen: (arg0: boolean) => void;
-  onReject?: (id: string) => void;
+  onReject: (id: string) => void;
 };
 
 const UserScheduleNotificationInfo: FC<UserScheduleNotificationInfoProps> = ({
@@ -22,9 +22,7 @@ const UserScheduleNotificationInfo: FC<UserScheduleNotificationInfoProps> = ({
   };
 
   const handleReject = () => {
-    if (onReject) {
-      onReject(_id as string);
-    }
+    onReject(_id as string);
   };
 
   const dateFormat = "LLL d hh:mm b";

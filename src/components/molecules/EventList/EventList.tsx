@@ -7,15 +7,13 @@ type EventListProps = {
   list: Scheduled[] | Request[];
   buttonTitle: string;
   isAdminItem?: boolean;
-  handleButtonClick?: (id: string) => void;
-  handleDeleteRequest?: (id: string) => void;
+  handleDeleteRequest: (id: string) => void;
   handleApproveRequest?: (id: string) => void;
 };
 
 const EventList: FC<EventListProps> = ({
   list,
   buttonTitle,
-  handleButtonClick,
   handleDeleteRequest,
   handleApproveRequest,
   isAdminItem,
@@ -25,7 +23,6 @@ const EventList: FC<EventListProps> = ({
       <ItemList
         key={item._id}
         buttonTitle={buttonTitle}
-        handleButtonClick={handleButtonClick}
         eventData={item}
         handleApproveRequest={handleApproveRequest}
         handleDeleteRequest={handleDeleteRequest}

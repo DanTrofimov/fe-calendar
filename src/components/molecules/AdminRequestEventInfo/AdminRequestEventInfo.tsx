@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 
 type AdminRequestEventInfoProps = {
   eventData: Request | Scheduled;
-  onReject?: (id: string) => void;
+  onReject: (id: string) => void;
   onApprove?: (id: string) => void;
   setIsRequestOpen: (arg0: boolean) => void;
 };
@@ -42,9 +42,7 @@ const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
   };
 
   const handleReject = () => {
-    if (onReject) {
-      onReject(id as string);
-    }
+    onReject(id as string);
     setIsRequestOpen(false);
   };
 
