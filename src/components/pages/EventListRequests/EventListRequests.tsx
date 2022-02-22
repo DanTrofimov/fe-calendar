@@ -9,7 +9,7 @@ import {
   deleteRequestThunk,
   getAdminRequestThunk,
   getRequestThunk,
-  postAdminRequestThunk
+  postAdminRequestThunk,
 } from "../../../store/requests/thunks";
 import { selectRequests } from "../../../store/requests/selectors";
 import { Request, Roles, User } from "../../../domain";
@@ -70,7 +70,7 @@ const EventListRequests: FC = () => {
             buttonTitle="More"
             handleDeleteRequest={handleDeleteRequest}
             handleApproveRequest={handleApproveRequest}
-            isNeedModal
+            isAdminItem
           />
         ) : (
           <p>Запросов на добавление событий нет</p>
