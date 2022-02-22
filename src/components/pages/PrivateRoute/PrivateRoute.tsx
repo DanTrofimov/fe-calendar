@@ -2,13 +2,13 @@ import React, { FC } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Routes } from "../../../constants/routes";
-import { User } from "../../../domain";
+import { Roles, User } from "../../../domain";
 import { selectUser } from "../../../store/user/selectors";
 
 type PrivateRouteProps = {
   component: React.ElementType;
   path?: Routes;
-  access: string;
+  access: Roles;
 };
 
 const PrivateRoute: FC<PrivateRouteProps> = ({

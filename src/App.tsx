@@ -17,29 +17,33 @@ import EventListRequests from "./components/pages/EventListRequests";
 import EventListScheduled from "./components/pages/EventListScheduled";
 import PrivateRoute from "./components/pages/PrivateRoute/PrivateRoute";
 import store from "./store";
+import AuthWrapper from "./components/pages/AuthWrapper";
+import { Roles } from "./domain";
 
 function App() {
   return (
     <Provider store={store}>
-      <ToastContainer {...ToastsConfig} />
-      <Router>
-        <Switch>
-          <Route path={Routes.LOGIN} component={Login} />
-          <Route path={Routes.SIGN_UP} component={SignUp} />
-          <Route path={Routes.DASHBOARD} component={Dashboard} />
-          <PrivateRoute
-            path={Routes.REQUESTS}
-            access="admin"
-            component={EventListRequests}
-          />
-          <PrivateRoute
-            access="user"
-            path={Routes.SCHEDULED}
-            component={EventListScheduled}
-          />
-          <Redirect from="/" to={Routes.DASHBOARD} />
-        </Switch>
-      </Router>
+      <AuthWrapper>
+        <ToastContainer {...ToastsConfig} />
+        <Router>
+          <Switch>
+            <Route path={Routes.LOGIN} component={Login} />
+            <Route path={Routes.SIGN_UP} component={SignUp} />
+            <Route path={Routes.DASHBOARD} component={Dashboard} />
+            <PrivateRoute
+              path={Routes.REQUESTS}
+              access={Roles.ADMIN}
+              component={EventListRequests}
+            />
+            <PrivateRoute
+              access={Roles.USER}
+              path={Routes.SCHEDULED}
+              component={EventListScheduled}
+            />
+            <Redirect from="/" to={Routes.DASHBOARD} />
+          </Switch>
+        </Router>
+      </AuthWrapper>
     </Provider>
   );
 }

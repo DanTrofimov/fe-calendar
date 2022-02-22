@@ -1,16 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../store";
 import AuthForm from "../../molecules/AuthForm";
 import AuthContainer from "../../molecules/AuthContainer";
 import { Routes } from "../../../constants/routes";
 import { loginThunk } from "../../../store/auth/thunks";
 import { cleanInfo } from "../../../store/auth/authSlice";
+import { selectUser } from "../../../store/user/selectors";
+import { User } from "../../../domain";
 
 const Login: FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
+
+  const user: User | null = useSelector(selectUser);
+
+  useEffect(() => {
+    if (user) history.push(Routes.DASHBOARD);
+  }, [history, user]);
 
   const onLogin = async (email: string, password: string) => {
     const data = await dispatch(
@@ -20,7 +29,6 @@ const Login: FC = () => {
       })
     ).unwrap();
 
-    // TODO: getting message instead error at the response, need to replace
     if (data?.error) {
       toast.error("Ошибка");
     } else {
