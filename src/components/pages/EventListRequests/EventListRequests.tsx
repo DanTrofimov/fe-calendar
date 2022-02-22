@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 import Header from "../../molecules/Header";
 import styles from "../Dashboard/styles.module.css";
 import {
@@ -8,7 +9,7 @@ import {
   deleteRequestThunk,
   getAdminRequestThunk,
   getRequestThunk,
-  postAdminRequestThunk,
+  postAdminRequestThunk
 } from "../../../store/requests/thunks";
 import { selectRequests } from "../../../store/requests/selectors";
 import { Request, Roles, User } from "../../../domain";
@@ -19,6 +20,7 @@ import EventList from "../../molecules/EventList";
 
 const EventListRequests: FC = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
@@ -55,9 +57,11 @@ const EventListRequests: FC = () => {
 
   const requests: Request[] | null = useSelector(selectRequests);
 
+  const onButtonRoute = () => history.push(Routes.DASHBOARD);
+
   return (
     <div className={styles["calendar-container"]}>
-      <Header buttonTitle="Dashboard" buttonRouter={Routes.DASHBOARD} />
+      <Header buttonTitle="Dashboard" onButtonRoute={onButtonRoute} />
       <div className={styles.content}>
         <h1>Requested events</h1>
         {requests?.length ? (
@@ -66,7 +70,7 @@ const EventListRequests: FC = () => {
             buttonTitle="More"
             handleDeleteRequest={handleDeleteRequest}
             handleApproveRequest={handleApproveRequest}
-            isAdminItem
+            isNeedModal
           />
         ) : (
           <p>Запросов на добавление событий нет</p>

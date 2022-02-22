@@ -13,8 +13,8 @@ API - https://github.com/jusstes/frontend-calendar-api
 Admin credentials:
 |Name|Value|
 |----|---------|
-|<p width=300>email</p>|<p width=300>admin@admin.net</p>|
-|<p width=300>pass</p>|<p width=300>1qaz@WSX</p>|
+|<p width=300>email</p>|<p width=300>`admin@admin.net`</p>|
+|<p width=300>pass</p>|<p width=300>`1qaz@WSX`</p>|
 
 ## Docs
 
