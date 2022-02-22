@@ -6,30 +6,27 @@ import ItemList from "../../atoms/ItemList";
 type EventListProps = {
   list: Scheduled[] | Request[];
   buttonTitle: string;
-  isNeedModal?: boolean;
-  handleButtonClick?: (id: string) => void;
-  handleDeleteRequest?: (id: string) => void;
+  isAdminItem?: boolean;
+  handleDeleteRequest: (id: string) => void;
   handleApproveRequest?: (id: string) => void;
 };
 
 const EventList: FC<EventListProps> = ({
   list,
   buttonTitle,
-  handleButtonClick,
   handleDeleteRequest,
   handleApproveRequest,
-  isNeedModal
+  isAdminItem,
 }) => (
   <div className={styles["calendar-container"]}>
     {list.map((item) => (
       <ItemList
         key={item._id}
         buttonTitle={buttonTitle}
-        handleButtonClick={handleButtonClick}
         eventData={item}
         handleApproveRequest={handleApproveRequest}
         handleDeleteRequest={handleDeleteRequest}
-        isNeedModal={isNeedModal}
+        isAdminItem={isAdminItem}
       />
     ))}
   </div>

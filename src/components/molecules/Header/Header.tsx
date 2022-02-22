@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { Button, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Roles, User } from "../../../domain";
 import { selectUser } from "../../../store/user/selectors";
 import styles from "./styles.module.css";
@@ -20,10 +20,11 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({
   buttonTitle,
   onButtonRoute = () => {},
-  addButtonCallback = () => {}
+  addButtonCallback = () => {},
 }) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   const handleLogout = async () => {
     await dispatch(logoutThunk()).unwrap();
@@ -66,12 +67,14 @@ const Header: FC<HeaderProps> = ({
         </div>
       ) : (
         <div className={styles.header__features}>
-          <IconButton
-            className={styles["header__add-button"]}
-            onClick={addButtonCallback}
-          >
-            <AddIcon />
-          </IconButton>
+          {location.pathname === Routes.DASHBOARD && (
+            <IconButton
+              className={styles["header__add-button"]}
+              onClick={addButtonCallback}
+            >
+              <AddIcon />
+            </IconButton>
+          )}
           <Button
             size="small"
             variant="contained"

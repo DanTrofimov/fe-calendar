@@ -4,47 +4,34 @@ import styles from "./styles.module.css";
 import AdminRequestEventInfo from "../../molecules/AdminRequestEventInfo";
 import ModalComponent from "../../molecules/ModalComponent";
 import { Request, Scheduled } from "../../../domain";
+import UserScheduleNotificationInfo from "../../molecules/UserScheduleNotificationInfo";
 
 type ItemListProps = {
   eventData: Request | Scheduled;
   buttonTitle: string;
-  isNeedModal?: boolean;
-  handleButtonClick?: (id: string) => void;
-  handleDeleteRequest?: (id: string) => void;
+  isAdminItem?: boolean;
+  handleDeleteRequest: (id: string) => void;
   handleApproveRequest?: (id: string) => void;
 };
 
 const ItemList: FC<ItemListProps> = ({
   eventData,
   buttonTitle,
-  handleButtonClick,
   handleDeleteRequest,
   handleApproveRequest,
-  isNeedModal
+  isAdminItem,
 }) => {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
 
-  const { summary, date, _id: id } = eventData;
+  const { summary } = eventData;
 
   const handleClick = () => {
-    if (handleButtonClick) {
-      handleButtonClick(id as string);
-    }
-    if (isNeedModal) {
-      setIsRequestOpen(true);
-    }
+    setIsRequestOpen(true);
   };
-
-  const isoDate = new Date(date);
-  const formattedDate = `${isoDate.getDate()}/${
-    isoDate.getMonth() + 1
-  }/${isoDate.getFullYear()}`;
-  const isDateValid = () => !Number.isNaN(isoDate.getTime());
 
   return (
     <div className={styles.item}>
       <p>{summary}</p>
-      {isDateValid() && <span>{formattedDate}</span>}
       <Button variant="contained" size="small" onClick={handleClick}>
         {buttonTitle}
       </Button>
@@ -52,12 +39,20 @@ const ItemList: FC<ItemListProps> = ({
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
       >
-        <AdminRequestEventInfo
-          onApprove={handleApproveRequest}
-          onReject={handleDeleteRequest}
-          eventData={eventData}
-          setIsRequestOpen={setIsRequestOpen}
-        />
+        {isAdminItem ? (
+          <AdminRequestEventInfo
+            onApprove={handleApproveRequest}
+            onReject={handleDeleteRequest}
+            eventData={eventData}
+            setIsRequestOpen={setIsRequestOpen}
+          />
+        ) : (
+          <UserScheduleNotificationInfo
+            onReject={handleDeleteRequest}
+            eventData={eventData}
+            setIsRequestOpen={setIsRequestOpen}
+          />
+        )}
       </ModalComponent>
     </div>
   );
