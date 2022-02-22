@@ -17,6 +17,7 @@ import { Routes } from "../../../constants/routes";
 import { selectUser } from "../../../store/user/selectors";
 import ScheduleEventForm from "../../molecules/ScheduleEventForm";
 import RequestEventForm from "../../molecules/RequestEventForm";
+import AuthInfo from "../../molecules/AuthInfo";
 import { postScheduledThunk } from "../../../store/scheduled/thunks";
 import { postRequestThunk } from "../../../store/requests/thunks";
 
@@ -27,8 +28,10 @@ const Dashboard: FC = () => {
 
   const [isScheduledOpen, setIsScheduledOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState("");
   const user: User | null = useSelector(selectUser);
+  const isLogged = !!user?._id;
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -48,7 +51,6 @@ const Dashboard: FC = () => {
   };
 
   const years = generateArrayOfYears();
-
   const events: Event[] = useSelector(selectEvents);
   const isLoading: boolean = useSelector(selectLoading);
 
@@ -58,6 +60,10 @@ const Dashboard: FC = () => {
     ) ?? events[0];
 
   const onDayClick = (e: any) => {
+    if (user?.role === Roles.ADMIN) {
+      return;
+    }
+
     if (e?.events[0]?.id) {
       setSelectedEventId(e.events[0].id);
       setIsScheduledOpen(true);
@@ -65,27 +71,48 @@ const Dashboard: FC = () => {
   };
 
   const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
-    const data = await dispatch(
-      postScheduledThunk({ _id, uid, date })
-    ).unwrap();
-    if (!data.error) {
-      toast.success("Has scheduled event");
+    if (isLogged) {
+      const data = await dispatch(
+        postScheduledThunk({ _id, uid, date })
+      ).unwrap();
+      if (!data.error) {
+        toast.success("Has scheduled event");
+      } else {
+        toast.error("Schedule error");
+      }
+      setIsScheduledOpen(false);
     } else {
-      toast.error("Schedule error");
+      setIsScheduledOpen(false);
+      setIsAuthModalOpen(true);
     }
-    setIsScheduledOpen(false);
   };
 
   const onRequestSubmit = async (event: Event) => {
-    const data = await dispatch(
-      postRequestThunk(event)
-    ).unwrap();
+    const data = await dispatch(postRequestThunk(event)).unwrap();
     if (!data.error) {
       toast.success("Has requested event");
     } else {
       toast.error("Request error");
     }
     setIsRequestOpen(false);
+  };
+
+  const onButtonRoute = () => {
+    if (isLogged) {
+      history.push(
+        user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
+      );
+    } else {
+      setIsAuthModalOpen(true);
+    }
+  };
+
+  const addButtonCallback = () => {
+    if (isLogged) {
+      setIsRequestOpen(true);
+    } else {
+      setIsAuthModalOpen(true);
+    }
   };
 
   return (
@@ -101,6 +128,12 @@ const Dashboard: FC = () => {
         />
       </ModalComponent>
       <ModalComponent
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      >
+        <AuthInfo />
+      </ModalComponent>
+      <ModalComponent
         isOpen={isRequestOpen}
         onClose={() => setIsRequestOpen(false)}
       >
@@ -111,19 +144,15 @@ const Dashboard: FC = () => {
       </ModalComponent>
       <Header
         buttonTitle={user?.role === Roles.ADMIN ? "Requests" : "Scheduled"}
-        buttonRouter={
-          user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
-        }
-        addButtonCallback={() =>
-          user?.role ? setIsRequestOpen(true) : history.push(Routes.LOGIN)
-        }
+        onButtonRoute={onButtonRoute}
+        addButtonCallback={addButtonCallback}
       />
       <div className={styles["year-select-container"]}>
         <YearSelect
           options={years}
           value={year}
           setValue={setYear}
-          label="Current year"
+          label="Chosen year"
         />
       </div>
       <EventsCalendar

@@ -13,13 +13,13 @@ import { Routes } from "../../../constants/routes";
 
 type HeaderProps = {
   buttonTitle: string;
-  buttonRouter: Routes;
+  onButtonRoute: () => void;
   addButtonCallback?: () => void;
 };
 
 const Header: FC<HeaderProps> = ({
   buttonTitle,
-  buttonRouter,
+  onButtonRoute = () => {},
   addButtonCallback = () => {}
 }) => {
   const dispatch = useAppDispatch();
@@ -55,11 +55,14 @@ const Header: FC<HeaderProps> = ({
       </div>
       {user?.role === Roles.ADMIN ? (
         <div className={styles.header__features}>
-          <Link to={buttonRouter}>
-            <Button size="small" variant="contained" color="success">
-              {buttonTitle}
-            </Button>
-          </Link>
+          <Button
+            size="small"
+            variant="contained"
+            color="success"
+            onClick={onButtonRoute}
+          >
+            {buttonTitle}
+          </Button>
         </div>
       ) : (
         <div className={styles.header__features}>
@@ -69,11 +72,14 @@ const Header: FC<HeaderProps> = ({
           >
             <AddIcon />
           </IconButton>
-          <Link to={buttonRouter}>
-            <Button size="small" variant="contained" color="success">
-              {buttonTitle}
-            </Button>
-          </Link>
+          <Button
+            size="small"
+            variant="contained"
+            color="success"
+            onClick={onButtonRoute}
+          >
+            {buttonTitle}
+          </Button>
         </div>
       )}
     </div>

@@ -1,0 +1,9 @@
+.auth-modal-container {
+    width: 100%;
+}
+
+.button-container {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
