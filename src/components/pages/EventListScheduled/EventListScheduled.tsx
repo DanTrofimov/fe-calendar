@@ -7,7 +7,7 @@ import styles from "../Dashboard/styles.module.css";
 import EventList from "../../molecules/EventList/EventList";
 import {
   deleteScheduledThunk,
-  getScheduledThunk
+  getScheduledThunk,
 } from "../../../store/scheduled/thunks";
 import { Scheduled } from "../../../domain";
 import { selectScheduled } from "../../../store/scheduled/selectors";
@@ -43,8 +43,8 @@ const EventListScheduled: FC = () => {
         {scheduled?.length ? (
           <EventList
             list={scheduled}
-            buttonTitle="Cancel"
-            handleButtonClick={handleDeleteScheduled}
+            buttonTitle="More"
+            handleDeleteRequest={handleDeleteScheduled}
           />
         ) : (
           <p>Уведомлений не создано или они были выполнены</p>
