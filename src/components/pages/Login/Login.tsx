@@ -18,7 +18,10 @@ const Login: FC = () => {
   const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
-    if (user) history.push(Routes.DASHBOARD);
+    if (user) {    
+      // back to -> dashboard -> updated page
+      history.go(-2);
+    }
   }, [history, user]);
 
   const onLogin = async (email: string, password: string) => {
