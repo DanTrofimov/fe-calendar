@@ -19,9 +19,7 @@ const Login: FC = () => {
   const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
-    if (user?._id) {
-      console.log(user);
-      
+    if (user?._id) {      
       history.goBack();
     }
   });
