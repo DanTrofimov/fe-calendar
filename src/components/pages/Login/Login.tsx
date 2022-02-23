@@ -22,7 +22,7 @@ const Login: FC = () => {
     if (user) {
       history.goBack();
     }
-  }, []);
+  });
 
   const onLogin = async (email: string, password: string) => {
     const data = await dispatch(
