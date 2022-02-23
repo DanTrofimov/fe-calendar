@@ -1,19 +1,21 @@
 import React, { ReactNode, FC, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { getUserThunk } from "../../../store/user/thunks";
-import { useAppDispatch } from "../../../store";
+import { selectUser } from "../../../store/user/selectors";
+import { User } from "../../../domain";
 
 type AuthWrapperProps = {
   children: ReactNode;
 };
 
 const AuthWrapper: FC<AuthWrapperProps> = ({ children }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
+  const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
-    const getUser = async () => {
-      await dispatch(getUserThunk()).unwrap();
-    };
-    getUser();
+    if (!user) {
+      dispatch(getUserThunk());
+    }
   }, []);
 
   return <div>{children}</div>;
