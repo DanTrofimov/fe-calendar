@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "../../../store";
 import { selectEvents, selectLoading } from "../../../store/events/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
-import { getUserThunk } from "../../../store/user/thunks";
 import Header from "../../molecules/Header";
 import { Event, Roles, User } from "../../../domain";
 import EventsCalendar from "../../organisms/EventsCalendar";
@@ -35,9 +34,8 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     dispatch(setLoading(true));
-    dispatch(getUserThunk());
     dispatch(getEventsThunk(year));
-  }, [dispatch, user?._id, year]);
+  }, [dispatch, year]);
 
   const generateArrayOfYears = () => {
     const max = new Date().getFullYear();
