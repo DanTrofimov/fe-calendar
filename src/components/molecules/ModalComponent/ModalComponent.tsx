@@ -2,7 +2,7 @@ import React, { ReactNode, FC } from "react";
 import { Modal, Fade, Backdrop, Box, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import styles from "./styles.module.css";
-import boxStyles from './boxStyles';
+import boxStyles from "./boxStyles";
 
 type ModalComponentProps = {
   children: ReactNode;
@@ -25,7 +25,7 @@ const ModalComponent: FC<ModalComponentProps> = ({
     }}
   >
     <Fade in={isOpen}>
-      <Box sx={boxStyles}>
+      <Box sx={boxStyles} className={styles.box}>
         <div className={styles.wrapper}>
           <IconButton onClick={onClose} className={styles["close-icon"]}>
             <ClearIcon />
