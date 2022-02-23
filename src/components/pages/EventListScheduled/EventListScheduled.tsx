@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
@@ -7,7 +7,7 @@ import styles from "../Dashboard/styles.module.css";
 import EventList from "../../molecules/EventList/EventList";
 import {
   deleteScheduledThunk,
-  getScheduledThunk,
+  getScheduledThunk
 } from "../../../store/scheduled/thunks";
 import { Scheduled } from "../../../domain";
 import { selectScheduled } from "../../../store/scheduled/selectors";
@@ -22,18 +22,24 @@ const EventListScheduled: FC = () => {
     dispatch(getScheduledThunk());
   }, [dispatch]);
 
-  const handleDeleteScheduled = async (id: string) => {
-    const data = await dispatch(deleteScheduledThunk(id)).unwrap();
-    if (!data.error) {
-      toast.success("Schedule cancelled");
-    } else {
-      toast.error("Schedule cancelled error");
-    }
-  };
+  const handleDeleteScheduled = useCallback(
+    async (id: string) => {
+      const data = await dispatch(deleteScheduledThunk(id)).unwrap();
+      if (!data.error) {
+        toast.success("Schedule cancelled");
+      } else {
+        toast.error("Schedule cancelled error");
+      }
+    },
+    [dispatch]
+  );
 
   const scheduled: Scheduled[] | undefined = useSelector(selectScheduled);
 
-  const onButtonRoute = () => history.push(Routes.DASHBOARD);
+  const onButtonRoute = useCallback(
+    () => history.push(Routes.DASHBOARD),
+    [history]
+  );
 
   return (
     <div className={styles["calendar-container"]}>

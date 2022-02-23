@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { Button } from "@mui/material";
 import { format } from "date-fns";
 import styles from "../AdminRequestEventInfo/styles.module.css";
@@ -13,17 +13,17 @@ type UserScheduleNotificationInfoProps = {
 const UserScheduleNotificationInfo: FC<UserScheduleNotificationInfoProps> = ({
   eventData,
   setIsRequestOpen,
-  onReject,
+  onReject
 }) => {
   const { _id, start, end, summary, date } = eventData;
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsRequestOpen(false);
-  };
+  }, [setIsRequestOpen]);
 
-  const handleReject = () => {
+  const handleReject = useCallback(() => {
     onReject(_id as string);
-  };
+  }, [_id, onReject]);
 
   const dateFormat = "LLL d hh:mm b";
 
@@ -32,11 +32,16 @@ const UserScheduleNotificationInfo: FC<UserScheduleNotificationInfoProps> = ({
     dateFormat
   )}`;
 
-  const isoDate = new Date(date);
-  const formattedDate = `${isoDate.getDate()}/${
-    isoDate.getMonth() + 1
-  }/${isoDate.getFullYear()}`;
-  const formattedTime = `${isoDate.getHours()}:${isoDate.getMinutes()}`;
+  const isoDate = useMemo(() => new Date(date), [date]);
+  const formattedDate = useMemo(
+    () =>
+      `${isoDate.getDate()}/${isoDate.getMonth() + 1}/${isoDate.getFullYear()}`,
+    [isoDate]
+  );
+  const formattedTime = useMemo(
+    () => `${isoDate.getHours()}:${isoDate.getMinutes()}`,
+    [isoDate]
+  );
   return (
     <>
       <h2>{summary}</h2>

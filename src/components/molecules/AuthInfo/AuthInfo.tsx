@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { Button } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
@@ -6,7 +6,7 @@ import { Routes } from "../../../constants/routes";
 
 const AuthModal: FC = () => {
   const history = useHistory();
-  const onClick = () => history.push(Routes.LOGIN);
+  const onClick = useCallback(() => history.push(Routes.LOGIN), [history]);
 
   return (
     <div className={styles["auth-modal-container"]}>

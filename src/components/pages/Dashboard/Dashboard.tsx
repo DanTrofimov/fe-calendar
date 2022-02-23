@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -52,50 +52,62 @@ const Dashboard: FC = () => {
   const events: Event[] = useSelector(selectEvents);
   const isLoading: boolean = useSelector(selectLoading);
 
-  const selectedEvent =
-    events.find(
-      ({ uid, _id }) => uid === selectedEventId || _id === selectedEventId
-    ) ?? events[0];
+  const selectedEvent = useMemo(
+    () =>
+      events.find(
+        ({ uid, _id }) => uid === selectedEventId || _id === selectedEventId
+      ) ?? events[0],
+    [events, selectedEventId]
+  );
 
-  const onDayClick = (e: any) => {
-    if (user?.role === Roles.ADMIN) {
-      return;
-    }
-
-    if (e?.events[0]?.id) {
-      setSelectedEventId(e.events[0].id);
-      setIsScheduledOpen(true);
-    }
-  };
-
-  const onScheduleSubmit = async (_id: string, uid: string, date: string) => {
-    if (isLogged) {
-      const data = await dispatch(
-        postScheduledThunk({ _id, uid, date })
-      ).unwrap();
-      if (!data.error) {
-        toast.success("Has scheduled event");
-      } else {
-        toast.error("Schedule error");
+  const onDayClick = useCallback(
+    (e: any) => {
+      if (user?.role === Roles.ADMIN) {
+        return;
       }
-      setIsScheduledOpen(false);
-    } else {
-      setIsScheduledOpen(false);
-      setIsAuthModalOpen(true);
-    }
-  };
 
-  const onRequestSubmit = async (event: Event) => {
-    const data = await dispatch(postRequestThunk(event)).unwrap();
-    if (!data.error) {
-      toast.success("Has requested event");
-    } else {
-      toast.error("Request error");
-    }
-    setIsRequestOpen(false);
-  };
+      if (e?.events[0]?.id) {
+        setSelectedEventId(e.events[0].id);
+        setIsScheduledOpen(true);
+      }
+    },
+    [user?.role]
+  );
 
-  const onButtonRoute = () => {
+  const onScheduleSubmit = useCallback(
+    async (_id: string, uid: string, date: string) => {
+      if (isLogged) {
+        const data = await dispatch(
+          postScheduledThunk({ _id, uid, date })
+        ).unwrap();
+        if (!data.error) {
+          toast.success("Has scheduled event");
+        } else {
+          toast.error("Schedule error");
+        }
+        setIsScheduledOpen(false);
+      } else {
+        setIsScheduledOpen(false);
+        setIsAuthModalOpen(true);
+      }
+    },
+    [dispatch, isLogged]
+  );
+
+  const onRequestSubmit = useCallback(
+    async (event: Event) => {
+      const data = await dispatch(postRequestThunk(event)).unwrap();
+      if (!data.error) {
+        toast.success("Has requested event");
+      } else {
+        toast.error("Request error");
+      }
+      setIsRequestOpen(false);
+    },
+    [dispatch]
+  );
+
+  const onButtonRoute = useCallback(() => {
     if (isLogged) {
       history.push(
         user?.role === Roles.ADMIN ? Routes.REQUESTS : Routes.SCHEDULED
@@ -103,15 +115,15 @@ const Dashboard: FC = () => {
     } else {
       setIsAuthModalOpen(true);
     }
-  };
+  }, [history, isLogged, user?.role]);
 
-  const addButtonCallback = () => {
+  const addButtonCallback = useCallback(() => {
     if (isLogged) {
       setIsRequestOpen(true);
     } else {
       setIsAuthModalOpen(true);
     }
-  };
+  }, [isLogged]);
 
   return (
     <div className={styles["calendar-container"]}>

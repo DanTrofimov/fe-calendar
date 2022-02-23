@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useCallback } from "react";
 import { Button, TextField, Checkbox } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -24,17 +24,17 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
     allDay: false
   });
 
-  const handleChange = (newValue: any, name: string) => {
+  const handleChange = useCallback((newValue: any, name: string) => {
     setFormValues({
       ...formValues,
       [name]: newValue
     });
-  };
+  }, [formValues]);
 
-  const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const onFormSubmit = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formValues);
-  };
+  }, [formValues, onSubmit]);
 
   return (
     <form onSubmit={onFormSubmit}>
