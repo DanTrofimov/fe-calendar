@@ -16,6 +16,7 @@ const AuthWrapper: FC<AuthWrapperProps> = ({ children }) => {
     if (!user) {
       dispatch(getUserThunk());
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>{children}</div>;
