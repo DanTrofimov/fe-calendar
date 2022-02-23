@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { Button, TextField, Checkbox } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import ru from "date-fns/locale/ru";
 import { Event } from "../../../domain";
 import styles from "./styles.module.css";
 
@@ -58,7 +59,7 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
       </div>
       <div className={styles["input-container"]}>
         <p>📆</p>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={ru}>
           <DateTimePicker
             label="Starts at"
             value={new Date(formValues.start)}

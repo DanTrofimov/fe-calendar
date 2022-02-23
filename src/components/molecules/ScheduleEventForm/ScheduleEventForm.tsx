@@ -3,6 +3,7 @@ import { Button, TextField } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { format } from "date-fns";
+import ru from "date-fns/locale/ru";
 import { Event } from "../../../domain";
 import styles from "./styles.module.css";
 
@@ -60,7 +61,7 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
       </p>
       <div className={styles["date-input-container"]}>
         <p>Notify at:</p>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={ru}>
           <DateTimePicker
             label=""
             minDateTime={Date.now() + 5 * (60 * 1000)}
