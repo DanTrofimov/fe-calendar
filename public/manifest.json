@@ -1,6 +1,7 @@
 {
   "short_name": "Frontend Events",
   "name": "Frontend Events",
+  "description": "Schedule of Frontend Events",
   "icons": [
     {
       "src": "favicon.ico",
