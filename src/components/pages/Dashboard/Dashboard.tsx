@@ -33,7 +33,7 @@ const Dashboard: FC = () => {
   const isLogged = !!user?._id;
 
   useEffect(() => {
-    dispatch(setLoading(true));
+    if (navigator.onLine) dispatch(setLoading(true));
     dispatch(getEventsThunk(year));
   }, [dispatch, year]);
 
