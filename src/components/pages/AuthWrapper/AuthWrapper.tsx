@@ -14,7 +14,7 @@ const AuthWrapper: FC<AuthWrapperProps> = ({ children }) => {
       await dispatch(getUserThunk()).unwrap();
     };
     getUser();
-  });
+  }, []);
 
   return <div>{children}</div>;
 };

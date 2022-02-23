@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { Routes } from "../../../constants/routes";
 import { Roles, User } from "../../../domain";
 import { selectUser } from "../../../store/user/selectors";
+import withAuthWrapper from "../../hocs/withAuth";
 
 type PrivateRouteProps = {
-  component: React.ElementType;
+  component: React.ComponentType;
   path?: Routes;
   access: Roles;
 };
@@ -22,7 +23,12 @@ const PrivateRoute: FC<PrivateRouteProps> = ({
     return <Redirect to={Routes.LOGIN} />;
   }
 
-  return <Route {...restProps} render={(props) => <Component {...props} />} />;
+  return (
+    <Route
+      {...restProps}
+      render={(props) => withAuthWrapper(Component, props)}
+    />
+  );
 };
 
 export default PrivateRoute;

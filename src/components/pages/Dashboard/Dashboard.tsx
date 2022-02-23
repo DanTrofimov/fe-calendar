@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "../../../store";
 import { selectEvents, selectLoading } from "../../../store/events/selectors";
 import { getEventsThunk } from "../../../store/events/thunks";
-import { getUserThunk } from "../../../store/user/thunks";
 import Header from "../../molecules/Header";
 import { Event, Roles, User } from "../../../domain";
 import EventsCalendar from "../../organisms/EventsCalendar";
