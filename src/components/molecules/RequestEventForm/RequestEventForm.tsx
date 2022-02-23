@@ -70,7 +70,7 @@ const RequestEventForm: FC<RequestsEventFormProps> = ({
       </div>
       <div className={styles["input-container"]}>
         <p>📆</p>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={ru}>
           <DateTimePicker
             label="Ends at"
             value={new Date(formValues.end)}
