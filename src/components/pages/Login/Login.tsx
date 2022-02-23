@@ -36,11 +36,11 @@ const Login: FC = () => {
       toast.error("Ошибка");
     } else {
       toast.info(email);
+      dispatch(getUserThunk());
       history.push(Routes.DASHBOARD);
     }
 
     dispatch(cleanInfo());
-    dispatch(getUserThunk());
   };
 
   return (
