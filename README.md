@@ -10,12 +10,6 @@ Application to see, scedule and add frontend events.
 
 API - https://github.com/jusstes/frontend-calendar-api
 
-Admin credentials:
-|Name|Value|
-|----|---------|
-|<p width=300>email</p>|<p width=300>`admin@admin.net`</p>|
-|<p width=300>pass</p>|<p width=300>`1qaz@WSX`</p>|
-
 ## Docs
 
 - Handbook - https://www.notion.so/465a2a5d78ba4af28ec16af87d3ac661
