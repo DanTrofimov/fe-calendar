@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo, useCallback } from "react";
 import { Button } from "@mui/material";
 import { format } from "date-fns";
 import { Request, Scheduled } from "../../../domain";
@@ -15,7 +15,7 @@ const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
   eventData,
   onApprove,
   onReject,
-  setIsRequestOpen,
+  setIsRequestOpen
 }) => {
   const {
     summary,
@@ -24,27 +24,31 @@ const AdminRequestEventInfo: FC<AdminRequestEventInfoProps> = ({
     end,
     description,
     allDay,
-    _id: id,
+    _id: id
   } = eventData;
 
   const dateFormat = "LLL d hh:mm b";
 
-  const range = `${format(new Date(start), dateFormat)} - ${format(
-    new Date(end),
-    dateFormat
-  )}`;
+  const range = useMemo(
+    () =>
+      `${format(new Date(start), dateFormat)} - ${format(
+        new Date(end),
+        dateFormat
+      )}`,
+    [start, end]
+  );
 
-  const handleAccept = () => {
+  const handleAccept = useCallback(() => {
     if (onApprove) {
       onApprove(id as string);
     }
     setIsRequestOpen(false);
-  };
+  }, [id, onApprove, setIsRequestOpen]);
 
-  const handleReject = () => {
+  const handleReject = useCallback(() => {
     onReject(id as string);
     setIsRequestOpen(false);
-  };
+  }, [id, onReject, setIsRequestOpen]);
 
   return (
     <>

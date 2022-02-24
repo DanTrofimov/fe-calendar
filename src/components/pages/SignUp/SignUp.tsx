@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../../store";
@@ -12,23 +12,26 @@ const SignUp: FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const onSignUp = async (email: string, password: string) => {
-    const { error, message } = await dispatch(
-      signUpThunk({
-        email,
-        password
-      })
-    ).unwrap();
+  const onSignUp = useCallback(
+    async (email: string, password: string) => {
+      const { error, message } = await dispatch(
+        signUpThunk({
+          email,
+          password
+        })
+      ).unwrap();
 
-    if (error) {
-      toast.error("Ошибка");
-    } else {
-      toast.info(message);
-      history.push(Routes.LOGIN);
-    }
+      if (error) {
+        toast.error("Ошибка");
+      } else {
+        toast.info(message);
+        history.push(Routes.LOGIN);
+      }
 
-    dispatch(cleanInfo());
-  };
+      dispatch(cleanInfo());
+    },
+    [dispatch, history]
+  );
 
   return (
     <AuthContainer>

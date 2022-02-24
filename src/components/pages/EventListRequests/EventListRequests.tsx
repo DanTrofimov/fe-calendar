@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
@@ -9,7 +9,7 @@ import {
   deleteRequestThunk,
   getAdminRequestThunk,
   getRequestThunk,
-  postAdminRequestThunk,
+  postAdminRequestThunk
 } from "../../../store/requests/thunks";
 import { selectRequests } from "../../../store/requests/selectors";
 import { Request, Roles, User } from "../../../domain";
@@ -31,33 +31,42 @@ const EventListRequests: FC = () => {
     }
   }, [dispatch, user?.role]);
 
-  const handleDeleteRequest = async (id: string) => {
-    let data;
-    if (user?.role === Roles.ADMIN) {
-      data = await dispatch(deleteAdminRequestThunk(id)).unwrap();
-    } else {
-      data = await dispatch(deleteRequestThunk(id)).unwrap();
-    }
-    if (!data.error) {
-      toast.success("Request cancelled");
-    } else {
-      toast.error("Request cancelled error");
-    }
-  };
+  const handleDeleteRequest = useCallback(
+    async (id: string) => {
+      let data;
+      if (user?.role === Roles.ADMIN) {
+        data = await dispatch(deleteAdminRequestThunk(id)).unwrap();
+      } else {
+        data = await dispatch(deleteRequestThunk(id)).unwrap();
+      }
+      if (!data.error) {
+        toast.success("Request cancelled");
+      } else {
+        toast.error("Request cancelled error");
+      }
+    },
+    [dispatch, user?.role]
+  );
 
-  const handleApproveRequest = async (id: string) => {
-    const data = await dispatch(postAdminRequestThunk(id)).unwrap();
+  const handleApproveRequest = useCallback(
+    async (id: string) => {
+      const data = await dispatch(postAdminRequestThunk(id)).unwrap();
 
-    if (!data.error) {
-      toast.success("Request cancelled");
-    } else {
-      toast.error("Request cancelled error");
-    }
-  };
+      if (!data.error) {
+        toast.success("Request cancelled");
+      } else {
+        toast.error("Request cancelled error");
+      }
+    },
+    [dispatch]
+  );
 
   const requests: Request[] | null = useSelector(selectRequests);
 
-  const onButtonRoute = () => history.push(Routes.DASHBOARD);
+  const onButtonRoute = useCallback(
+    () => history.push(Routes.DASHBOARD),
+    [history]
+  );
 
   return (
     <div className={styles["calendar-container"]}>

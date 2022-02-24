@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -19,29 +19,32 @@ const Login: FC = () => {
   const user: User | null = useSelector(selectUser);
 
   useEffect(() => {
-    if (user) {
+    if (user?._id) {      
       history.goBack();
     }
   });
 
-  const onLogin = async (email: string, password: string) => {
-    const data = await dispatch(
-      loginThunk({
-        email,
-        password
-      })
-    ).unwrap();
+  const onLogin = useCallback(
+    async (email: string, password: string) => {
+      const data = await dispatch(
+        loginThunk({
+          email,
+          password
+        })
+      ).unwrap();
 
-    if (data?.error) {
-      toast.error("Ошибка");
-    } else {
-      toast.info(email);
-      dispatch(getUserThunk());
-      history.push(Routes.DASHBOARD);
-    }
+      if (data?.error) {
+        toast.error("Ошибка");
+      } else {
+        toast.info(email);
+        dispatch(getUserThunk());
+        history.push(Routes.DASHBOARD);
+      }
 
-    dispatch(cleanInfo());
-  };
+      dispatch(cleanInfo());
+    },
+    [dispatch, history]
+  );
 
   return (
     <AuthContainer>

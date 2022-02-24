@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Button, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -20,18 +20,18 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({
   buttonTitle,
   onButtonRoute = () => {},
-  addButtonCallback = () => {},
+  addButtonCallback = () => {}
 }) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const location = useLocation();
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await dispatch(logoutThunk()).unwrap();
     dispatch(clearUser());
 
     history.replace(Routes.DASHBOARD);
-  };
+  }, [dispatch, history]);
 
   const user: User | null = useSelector(selectUser);
   const isLogged = !!user?._id;

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useCallback } from "react";
 import {
   TextField,
   Button,
@@ -30,12 +30,18 @@ const AuthForm: FC<AuthFormProps> = ({ link, submit }) => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    submit.action(email, password);
-  };
+  const onSubmit = useCallback(
+    (e: React.ChangeEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      submit.action(email, password);
+    },
+    [email, password, submit]
+  );
 
-  const changePassVisibility = () => setShowPassword(!showPassword);
+  const changePassVisibility = useCallback(
+    () => setShowPassword(!showPassword),
+    [showPassword]
+  );
 
   return (
     <form onSubmit={onSubmit} className={styles.authForm}>

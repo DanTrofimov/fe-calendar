@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useCallback, useMemo } from "react";
 import { Button, TextField } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -34,19 +34,23 @@ const ScheduleEventForm: FC<ScheduleEventFormProps> = ({
 
   const dateFormat = "LLL d hh:mm b";
 
-  const range = `${format(new Date(startDate), dateFormat)} - ${format(
-    new Date(endDate),
-    dateFormat
-  )}`;
+  const range = useMemo(
+    () =>
+      `${format(new Date(startDate), dateFormat)} - ${format(
+        new Date(endDate),
+        dateFormat
+      )}`,
+    [startDate, endDate]
+  );
 
-  const handleChangeDate = (newValue: any) => {
+  const handleChangeDate = useCallback((newValue: any) => {
     setScheduleDate(newValue);
-  };
+  }, []);
 
-  const onFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const onFormSubmit = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(_id as string, uid as string, scheduleDate.toISOString());
-  };
+  }, [_id, onSubmit, scheduleDate, uid]);
 
   return (
     <form onSubmit={onFormSubmit}>
