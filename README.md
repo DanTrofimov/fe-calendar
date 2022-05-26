@@ -4,7 +4,6 @@
 
 Application to see, schedule and add frontend events.
 
-currently unavailable (our backend [can't get needed data from API](https://github.com/web-standards-ru/calendar/issues/661)])
 ## Setup
 
 - Use `yarn` to download dependencies
