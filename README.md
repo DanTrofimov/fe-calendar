@@ -2,7 +2,9 @@
 
 <img src="https://user-images.githubusercontent.com/44056222/154472716-1b01abac-4cc1-4ab5-bbdb-a1b29df7a4a3.png" width="600"/>
 
-Application to see, scedule and add frontend events.
+Application to see, schedule and add frontend events.
+
+currently unavailable (our backend [can't get needed data from API](https://github.com/web-standards-ru/calendar/issues/661)])
 ## Setup
 
 - Use `yarn` to download dependencies
